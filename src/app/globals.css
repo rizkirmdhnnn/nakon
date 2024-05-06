@@ -2,32 +2,79 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background: 220 23.077% 94.902%; /* base */
+    --foreground: 233.793 16.022% 35.49%; /* text */
+
+    --muted: 222.857 15.909% 82.745%; /* surface0 */
+    --muted-foreground: 233.333 12.796% 41.373%; /* subtext1 */
+
+    --popover: 220 23.077% 94.902%; /* base */
+    --popover-foreground: 233.793 16.022% 35.49%; /* text */
+
+    --card: 220 23.077% 94.902%; /* base */
+    --card-foreground: 233.793 16.022% 35.49%; /* text */
+
+    --border: 225 13.559% 76.863%; /* surface1 */
+    --input: 225 13.559% 76.863%; /* surface1 */
+
+    --primary: 230.935 97.203% 71.961%; /* lavender */
+    --primary-foreground: 220 23.077% 94.902%; /* base */
+
+    --secondary: 222.857 15.909% 82.745%; /* surface0 */
+    --secondary-foreground: 233.793 16.022% 35.49%; /* text */
+
+    --accent: 222.857 15.909% 82.745%; /* surface0 */
+    --accent-foreground: 233.793 16.022% 35.49%; /* text */
+
+    --destructive: 347.077 86.667% 44.118%; /* red */
+    --destructive-foreground: 220 21.951% 91.961%; /* mantle */
+
+    --ring: 233.793 16.022% 35.49%; /* text */
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 240 21.053% 14.902%; /* base */
+    --foreground: 226.154 63.934% 88.039%; /* text */
+
+    --muted: 236.842 16.239% 22.941%; /* surface0 */
+    --muted-foreground: 226.667 35.294% 80%; /* subtext1 */
+
+    --popover: 240 21.053% 14.902%; /* base */
+    --popover-foreground: 226.154 63.934% 88.039%; /* text */
+
+    --card: 240 21.053% 14.902%; /* base */
+    --card-foreground: 226.154 63.934% 88.039%; /* text */
+
+    --border: 234.286 13.208% 31.176%; /* surface1 */
+    --input: 234.286 13.208% 31.176%; /* surface1 */
+
+    --primary: 231.892 97.368% 85.098%; /* lavender */
+    --primary-foreground: 240 21.053% 14.902%; /* base */
+
+    --secondary: 236.842 16.239% 22.941%; /* surface0 */
+    --secondary-foreground: 226.154 63.934% 88.039%; /* text */
+
+    --accent: 236.842 16.239% 22.941%; /* surface0 */
+    --accent-foreground: 226.154 63.934% 88.039%; /* text */
+
+    --destructive: 343.269 81.25% 74.902%; /* red */
+    --destructive-foreground: 240 21.311% 11.961%; /* mantle */
+
+    --ring: 226.154 63.934% 88.039%; /* text */
+
+    --radius: 0.5rem;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }
