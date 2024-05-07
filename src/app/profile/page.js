@@ -1,5 +1,6 @@
 import Navbar from "@/components/group/navbar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
@@ -69,17 +70,13 @@ function profile() {
                       </div>
                     </div>
                     <div className="mt-[29px] md:mr-2 md:mb-0">
-                      <button type="submit" className="px-4 py-[10px] bg-primary text-popover font-poppins rounded-xl hover:bg-hoverr_lavv">
-                        Verifikasi
-                      </button>
+                    <Button>Verifikasi</Button>
                     </div>
                   </div>
 
                   {/* button save */}
                   <div className="flex justify-start py-4">
-                    <button type="submit" className="px-4 py-2 bg-primary text-popover font-poppins rounded-xl hover:bg-hoverr_lavv">
-                      Save
-                    </button>
+                  <Button>Save</Button>
                   </div>
 
                   {/* password form */}
@@ -102,9 +99,10 @@ function profile() {
                   </div>
                   {/* button save */}
                   <div className="flex justify-start">
-                    <button type="submit" className="md:px-4 md:py-2 bg-primary text-popover font-poppins rounded-xl hover:bg-hoverr_lavv">
+                    <Button>Save</Button>
+                    {/* <button type="submit" className="md:px-4 md:py-2 bg-primary text-popover font-poppins rounded-xl hover:bg-hoverr_lavv">
                       Save
-                    </button>
+                    </button> */}
                   </div>
                 </form>
                 <div className="col-span-5 text-white"></div>
