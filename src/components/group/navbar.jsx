@@ -14,7 +14,7 @@ import { ModeToggle } from "@/components/toggleTheme";
 
 function Navbar() {
   return (
-    <div className="flex justify-between items-center shadow-sm px-6 py-3 md:px-[100px] xl:px-[250px]">
+    <div className="flex justify-between items-center shadow-sm px-6 py-3 md:px-[100px] xl:px-[250px] bg-secondary">
       <h1 className="text-2xl font-bold">
         {" "}   
         <Link href="/">Nakon</Link>
