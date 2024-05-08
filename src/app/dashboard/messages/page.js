@@ -1,5 +1,6 @@
 "use client";
 
+import CustomFooter from "@/components/group/footer";
 import MsgCard from "@/components/group/msgcard";
 import Navbar from "@/components/group/navbar";
 import {
@@ -85,6 +86,7 @@ function page() {
           />
         </div>
       </main>
+      <CustomFooter />
     </>
   );
 }

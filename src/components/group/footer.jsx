@@ -5,7 +5,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ModeToggle } from "@/components/toggleTheme";
 
-function footer() {
+function CustomFooter() {
   return (
     <>
       <footer class="bg-white  shadow dark:bg-secondary mt-20 sticky ">
@@ -54,4 +54,4 @@ function footer() {
   );
 }
 
-export default footer;
+export default CustomFooter;

@@ -1,5 +1,6 @@
 "use client";
 
+import CustomFooter from "@/components/group/footer";
 import MsgCard from "@/components/group/msgcard";
 import Navbar from "@/components/group/navbar";
 import { Button } from "@/components/ui/button";
@@ -240,6 +241,8 @@ function Dashboard() {
           </Card>
         </div>
       </main>
+
+      <CustomFooter />
     </>
   );
 }
