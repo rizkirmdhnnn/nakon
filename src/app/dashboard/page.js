@@ -1,5 +1,6 @@
 "use client";
 
+import MsgCard from "@/components/group/msgcard";
 import Navbar from "@/components/group/navbar";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,13 +22,7 @@ import {
 } from "@/components/ui/table";
 import { useToast } from "@/components/ui/use-toast";
 import copy from "copy-to-clipboard";
-import {
-  ArrowRightCircle,
-  Calendar,
-  Copy,
-  MessageCircleIcon,
-  Users,
-} from "lucide-react";
+import { ArrowRightCircle, Copy, MessageCircleIcon, Users } from "lucide-react";
 import Link from "next/link";
 
 function Dashboard() {
@@ -128,7 +123,7 @@ function Dashboard() {
             </p>
           </div>
           <Button asChild size="sm" className="ml-auto gap-1 mt-8">
-            <Link href="#">
+            <Link href="./dashboard/messages">
               View All
               <ArrowRightCircle className="h-4 w-4" />
             </Link>
@@ -136,143 +131,59 @@ function Dashboard() {
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3 mt-4">
-          <Card
-            x-chunk="dashboard-01-chunk-1"
-            className="bg-secondary border-none"
-          >
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-xl font-bold">
-                Pertanyaan #1
-                <div className="flex items-center">
-                  <Calendar className="h-3 w-3 text-muted-foreground" />
-                  <p className="text-xs font-medium ps-1">12 oktober 2024</p>
-                </div>
-              </CardTitle>
+          <MsgCard
+            question={"Pertanyaan #1"}
+            date={"12 oktober 2024"}
+            message={
+              "hallo ini merupakan contoh pesan yang nantinya akan dikirim. ini  whanya pesan dummy saja ya"
+            }
+            id={"1"}
+          />
 
-              {/* <Users className="h-4 w-4 text-muted-foreground" /> */}
-            </CardHeader>
-            <CardContent>
-              <p className="text-1xl text-muted-foreground">
-                hallo ini merupakan contoh pesan yang nantinya akan dikirim. ini
-                hanya pesan dummy saja ya
-              </p>
-            </CardContent>
-          </Card>
+          <MsgCard
+            question={"Pertanyaan #2"}
+            date={"12 oktober 2024"}
+            message={
+              "hallo ini merupakan contoh pesan yang nantinya akan dikirim. ini  whanya pesan dummy saja ya"
+            }
+            id={"2"}
+          />
 
-          <Card
-            x-chunk="dashboard-01-chunk-1"
-            className="bg-secondary border-none"
-          >
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-xl font-bold">
-                Pertanyaan #2
-                <div className="flex items-center">
-                  <Calendar className="h-3 w-3 text-muted-foreground" />
-                  <p className="text-xs font-medium ps-1">12 oktober 2024</p>
-                </div>
-              </CardTitle>
+          <MsgCard
+            question={"Pertanyaan #3"}
+            date={"12 oktober 2024"}
+            message={
+              "hallo ini merupakan contoh pesan yang nantinya akan dikirim. ini  whanya pesan dummy saja ya"
+            }
+            id={"3"}
+          />
 
-              {/* <Users className="h-4 w-4 text-muted-foreground" /> */}
-            </CardHeader>
-            <CardContent>
-              <p className="text-1xl text-muted-foreground">
-                hallo ini merupakan contoh pesan yang nantinya akan dikirim. ini
-                hanya pesan dummy saja ya
-              </p>
-            </CardContent>
-          </Card>
+          <MsgCard
+            question={"Pertanyaan #4"}
+            date={"12 oktober 2024"}
+            message={
+              "hallo ini merupakan contoh pesan yang nantinya akan dikirim. ini  whanya pesan dummy saja ya"
+            }
+            id={"4"}
+          />
 
-          <Card
-            x-chunk="dashboard-01-chunk-1"
-            className="bg-secondary border-none"
-          >
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-xl font-bold">
-                Pertanyaan #3
-                <div className="flex items-center">
-                  <Calendar className="h-3 w-3 text-muted-foreground" />
-                  <p className="text-xs font-medium ps-1">12 oktober 2024</p>
-                </div>
-              </CardTitle>
+          <MsgCard
+            question={"Pertanyaan #5"}
+            date={"12 oktober 2024"}
+            message={
+              "hallo ini merupakan contoh pesan yang nantinya akan dikirim. ini  whanya pesan dummy saja ya"
+            }
+            id={"5"}
+          />
 
-              {/* <Users className="h-4 w-4 text-muted-foreground" /> */}
-            </CardHeader>
-            <CardContent>
-              <p className="text-1xl text-muted-foreground">
-                hallo ini merupakan contoh pesan yang nantinya akan dikirim. ini
-                hanya pesan dummy saja ya
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card
-            x-chunk="dashboard-01-chunk-1"
-            className="bg-secondary border-none"
-          >
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-xl font-bold">
-                Pertanyaan #1
-                <div className="flex items-center">
-                  <Calendar className="h-3 w-3 text-muted-foreground" />
-                  <p className="text-xs font-medium ps-1">12 oktober 2024</p>
-                </div>
-              </CardTitle>
-
-              {/* <Users className="h-4 w-4 text-muted-foreground" /> */}
-            </CardHeader>
-            <CardContent>
-              <p className="text-1xl text-muted-foreground">
-                hallo ini merupakan contoh pesan yang nantinya akan dikirim. ini
-                hanya pesan dummy saja ya
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card
-            x-chunk="dashboard-01-chunk-1"
-            className="bg-secondary border-none"
-          >
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-xl font-bold">
-                Pertanyaan #2
-                <div className="flex items-center">
-                  <Calendar className="h-3 w-3 text-muted-foreground" />
-                  <p className="text-xs font-medium ps-1">12 oktober 2024</p>
-                </div>
-              </CardTitle>
-
-              {/* <Users className="h-4 w-4 text-muted-foreground" /> */}
-            </CardHeader>
-            <CardContent>
-              <p className="text-1xl text-muted-foreground">
-                hallo ini merupakan contoh pesan yang nantinya akan dikirim. ini
-                hanya pesan dummy saja ya
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card
-            x-chunk="dashboard-01-chunk-1"
-            className="bg-secondary border-none"
-          >
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-xl font-bold">
-                Pertanyaan #3
-                <div className="flex items-center">
-                  <Calendar className="h-3 w-3 text-muted-foreground" />
-                  <p className="text-xs font-medium ps-1">12 oktober 2024</p>
-                </div>
-              </CardTitle>
-
-              {/* <Users className="h-4 w-4 text-muted-foreground" /> */}
-            </CardHeader>
-            <CardContent>
-              <p className="text-1xl text-muted-foreground">
-                hallo ini merupakan contoh pesan yang nantinya akan dikirim. ini
-                hanya pesan dummy saja ya
-              </p>
-            </CardContent>
-          </Card>
+          <MsgCard
+            question={"Pertanyaan #6"}
+            date={"12 oktober 2024"}
+            message={
+              "hallo ini merupakan contoh pesan yang nantinya akan dikirim. ini  whanya pesan dummy saja ya"
+            }
+            id={"6"}
+          />
         </div>
 
         {/* Leaderboard */}
