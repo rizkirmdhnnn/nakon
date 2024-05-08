@@ -30,7 +30,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-function page() {
+function Dashboard() {
   const { toast } = useToast();
   return (
     <>
@@ -333,4 +333,4 @@ function page() {
   );
 }
 
-export default page;
+export default Dashboard;
