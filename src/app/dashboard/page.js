@@ -19,7 +19,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useToast } from "@/components/ui/use-toast"
+import { useToast } from "@/components/ui/use-toast";
 import copy from "copy-to-clipboard";
 import {
   ArrowRightCircle,
@@ -30,19 +30,22 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-function page() {
+function Dashboard() {
   const { toast } = useToast();
   return (
     <>
       <Navbar />
       {/* Statistik akun */}
-      <main className="p-5 md:px-[100px] xl:px-[250px]">
+      <main className="p-5 md:px-[100px] xl:px-[250px] pt-[100px]">
         <h1 className="text-2xl font-bold">Statistik Akun</h1>
         <p className="text-base leading-10">Lihat statistik akun anda</p>
         <div className="flex flex-1 flex-col gap-4 md:gap-6 ">
           <div className="flex flex-1 flex-col gap-4 md:gap-8"></div>
           <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
-            <Card x-chunk="dashboard-01-chunk-1">
+            <Card
+              x-chunk="dashboard-01-chunk-1"
+              className="bg-secondary border-none"
+            >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   Total Kunjungan Keseluruhan
@@ -56,7 +59,10 @@ function page() {
                 </p>
               </CardContent>
             </Card>
-            <Card x-chunk="dashboard-01-chunk-1">
+            <Card
+              x-chunk="dashboard-01-chunk-1"
+              className="bg-secondary border-none"
+            >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   Total Pesan Diterima
@@ -70,7 +76,11 @@ function page() {
                 </p>
               </CardContent>
             </Card>
-            <Card x-chunk="dashboard-01-chunk-1">
+
+            <Card
+              x-chunk="dashboard-01-chunk-1"
+              className="bg-secondary border-none"
+            >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
                   Share Link
@@ -126,7 +136,10 @@ function page() {
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3 mt-4">
-          <Card x-chunk="dashboard-01-chunk-1">
+          <Card
+            x-chunk="dashboard-01-chunk-1"
+            className="bg-secondary border-none"
+          >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-xl font-bold">
                 Pertanyaan #1
@@ -145,7 +158,11 @@ function page() {
               </p>
             </CardContent>
           </Card>
-          <Card x-chunk="dashboard-01-chunk-1">
+
+          <Card
+            x-chunk="dashboard-01-chunk-1"
+            className="bg-secondary border-none"
+          >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-xl font-bold">
                 Pertanyaan #2
@@ -164,7 +181,11 @@ function page() {
               </p>
             </CardContent>
           </Card>
-          <Card x-chunk="dashboard-01-chunk-1">
+
+          <Card
+            x-chunk="dashboard-01-chunk-1"
+            className="bg-secondary border-none"
+          >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-xl font-bold">
                 Pertanyaan #3
@@ -183,7 +204,11 @@ function page() {
               </p>
             </CardContent>
           </Card>
-          <Card x-chunk="dashboard-01-chunk-1">
+
+          <Card
+            x-chunk="dashboard-01-chunk-1"
+            className="bg-secondary border-none"
+          >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-xl font-bold">
                 Pertanyaan #1
@@ -202,7 +227,11 @@ function page() {
               </p>
             </CardContent>
           </Card>
-          <Card x-chunk="dashboard-01-chunk-1">
+
+          <Card
+            x-chunk="dashboard-01-chunk-1"
+            className="bg-secondary border-none"
+          >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-xl font-bold">
                 Pertanyaan #2
@@ -221,7 +250,11 @@ function page() {
               </p>
             </CardContent>
           </Card>
-          <Card x-chunk="dashboard-01-chunk-1">
+
+          <Card
+            x-chunk="dashboard-01-chunk-1"
+            className="bg-secondary border-none"
+          >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-xl font-bold">
                 Pertanyaan #3
@@ -300,4 +333,4 @@ function page() {
   );
 }
 
-export default page;
+export default Dashboard;
