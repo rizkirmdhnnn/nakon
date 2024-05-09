@@ -14,7 +14,7 @@ function page() {
   return (
     <>
       <Navbar />
-      <main className="p-5 md:px-[100px] xl:px-[250px]  pt-[100px]">
+      <main className="p-5 md:px-[100px] xl:px-[250px]  pt-[100px] h-screen">
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-2xl font-bold">Semua Pesan</h1>
