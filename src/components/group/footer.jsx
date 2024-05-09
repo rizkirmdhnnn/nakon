@@ -1,17 +1,15 @@
-import React from "react";
 import Link from "next/link";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { ModeToggle } from "@/components/toggleTheme";
 
 function CustomFooter() {
   return (
     <>
-      <footer class="bg-white  shadow dark:bg-secondary mt-20 sticky ">
-        <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+      <footer class="shadow bg-background dark:bg-secondary mt-20 sticky ">
+        <div class="w-full mx-auto px-6 py-10 md:px-[100px] xl:px-[250px]">
           <div class="sm:flex sm:items-center sm:justify-between">
-            <div href="https://flowbite.com/" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
+            <div
+              href="https://flowbite.com/"
+              class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse"
+            >
               <h1 className="text-2xl font-bold">
                 {" "}
                 <Link href="/">Nakon</Link>
