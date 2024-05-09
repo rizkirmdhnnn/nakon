@@ -46,7 +46,7 @@ function Dashboard() {
                 <CardTitle className="text-sm font-medium">
                   Total Kunjungan Keseluruhan
                 </CardTitle>
-                <Users className="h-4 w- q4 text-muted-foreground" />
+                <Users className="h-4 w- q4 text-primary" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">+278.350</div>
@@ -63,7 +63,7 @@ function Dashboard() {
                 <CardTitle className="text-sm font-medium">
                   Total Pesan Diterima
                 </CardTitle>
-                <MessageCircleIcon className="h-4 w-4 text-muted-foreground" />
+                <MessageCircleIcon className="h-4 w-4 text-primary" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">270</div>
