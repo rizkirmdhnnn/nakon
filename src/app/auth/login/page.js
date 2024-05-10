@@ -34,7 +34,7 @@ function page() {
               <div className="flex">
                 <Label htmlFor="password">Password</Label>
                 <Link
-                  href="#"
+                  href="/auth/reset-password"
                   className="ml-auto inline-block text-sm underline"
                 >
                   Forgot your password?
