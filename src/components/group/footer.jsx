@@ -3,10 +3,10 @@ import Link from "next/link";
 function CustomFooter() {
   return (
     <>
-      <footer className="shadow bg-background dark:bg-secondary mt-20 sticky ">
+      <footer className="shadow bg-secondary dark:bg-secondary mt-20 sticky ">
         <div className="w-full mx-auto px-6 py-10 md:px-[100px] xl:px-[250px]">
           <div className="sm:flex sm:items-center sm:justify-between">
-            <div href="https://flowbite.com/" className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
+            <div href="" className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
               <h1 className="text-2xl font-bold">
                 {" "}
                 <Link href="/">Nakon</Link>

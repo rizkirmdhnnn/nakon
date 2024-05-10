@@ -30,13 +30,13 @@ export default function ResetPassword() {
       <Navbar />
       <div className="flex min-h-screen w-full items-center justify-center px-6 py-3 md:px-[100px] xl:px-[250px]">
         <Card>
-          <div className="grid w-full md:min-h-[600px] lg:grid-cols-2 bg-secondary ">
-            <div className="hidden bg-secondary rounded-sm lg:block">
+          <div className="grid w-full md:min-h-[600px]  xl:grid-cols-2 bg-secondary ">
+            <div className="hidden bg-secondary rounded-sm xl:block">
               <img
                 alt="Hero Illustration"
-                className="h-full w-full object-cover rounded-l-sm"
+                className="h-full w-full p-10 object-cover rounded-l-sm shadow-xl xl:"
                 height={600}
-                src="/re.png"
+                src="/p.png"
                 style={{
                   aspectRatio: "800/600",
                   objectFit: "cover",
