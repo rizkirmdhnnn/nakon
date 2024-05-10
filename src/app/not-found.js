@@ -12,7 +12,7 @@ export default function NotFound() {
             <h1 class="mt-3 text-2xl font-semibold text-gray-800 dark:text-white md:text-3xl">Halaman Tidak Ditemukan</h1>
             <p class="mt-4 text-gray-500 dark:text-gray-400">Duh, Halaman Yang Kamu Cari Tidak Ditemukan</p>
             <div class="flex items-center mt-6 ">
-              <Button className=" w-auto px-5 py-2 text-sm  bg-primary rounded-lg shrink-0 ">Ke Home</Button>
+              <Button href="/"  className=" w-auto px-5 py-2 text-sm  bg-primary rounded-lg shrink-0 ">Ke Home</Button>
             </div>
           </div>
         </div>
