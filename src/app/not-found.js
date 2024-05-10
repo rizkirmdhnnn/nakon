@@ -6,7 +6,7 @@ export default function NotFound() {
   return (
     <>
       <section class="bg-white dark:bg-gray-900 ">
-        <div class="container flex items-center min-h-screen px-6 py-12 flex-col mx-auto">
+        <div class="container flex items-center min-h-screen px-6 py-12 flex-col justify-center">
           <Image alt="Sign up illustration" className="h-full w-[480px] object-cover " height={10000} src="/sembere.png" width={10000} />
           <div class="flex flex-col items-center max-w-sm mt-10 mx-auto text-center">
             <h1 class="mt-3 text-2xl font-semibold text-gray-800 dark:text-white md:text-3xl">Halaman Tidak Ditemukan</h1>
