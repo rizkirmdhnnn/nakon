@@ -10,7 +10,7 @@ import React from "react";
 function profile() {
   return (
     <>
-    <Navbar />
+      <Navbar />
       <div className="container pt-[100px]">
         <div className="">
           <h1 className="text-2xl font-bold">Account</h1>
@@ -18,7 +18,7 @@ function profile() {
           <hr></hr>
         </div>
         <section>
-          <div className="container mt-7">
+          <div className="mt-7">
             <div className="w-full flex flex-row gap-4 items-center">
               {/* <Image href={"#"}className="my-auto  bg-blue-500 rounded-full shadow-lg"></Image> */}
               <Avatar className="w-20 h-20">
@@ -37,9 +37,9 @@ function profile() {
         </section>
 
         <section>
-          <div className="container mx-auto mt-6">
+          <div className=" mt-6 ">
             <div className="grid grid-cols-12">
-              <div className="col-span-7">
+              <div className="col-span-10">
                 <form>
                   <h1 className="text-xl font-bold py-4">Detail</h1>
                   <div className="mb-4 md:flex gap-10 ">
