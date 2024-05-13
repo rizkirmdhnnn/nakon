@@ -8,6 +8,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Check } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { InputOTPControlled } from "../verify-otp/page";
@@ -32,7 +33,7 @@ export default function ResetPassword() {
         <Card>
           <div className="grid w-full md:min-h-[600px]  xl:grid-cols-2 bg-secondary ">
             <div className="hidden bg-secondary rounded-sm xl:block">
-              <img
+              <Image
                 alt="Hero Illustration"
                 className="h-full w-full p-10 object-cover rounded-l-sm shadow-xl xl:"
                 height={600}
