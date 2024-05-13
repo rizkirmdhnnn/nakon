@@ -41,7 +41,7 @@ function CustomFooter() {
             <a href="https://flowbite.com/" className="hover:underline">
               Nakon
             </a>
-            . copyright timohohoh
+            . copyright
           </span>
         </div>
       </footer>
