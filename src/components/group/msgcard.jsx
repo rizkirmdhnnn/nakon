@@ -24,7 +24,7 @@ export default function MsgCard({ question, date, message, id }) {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="text-1xl text-muted-foreground">{message}</p>
+        <p className="text-1xl text-muted-foreground line-clamp-2">{message}</p>
       </CardContent>
       <CardFooter className="float-end">
         <Button onClick={handleButtonClick}>
