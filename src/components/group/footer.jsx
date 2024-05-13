@@ -39,9 +39,9 @@ function CustomFooter() {
           <span className="block text-sm text-gray-500 sm:text-center dark:text-gray-400">
             © 2024{" "}
             <a href="https://flowbite.com/" className="hover:underline">
-              Nakont0lll
+              Nakon
             </a>
-            . copyright oh oh oh oh
+            . copyright timohohoh
           </span>
         </div>
       </footer>
