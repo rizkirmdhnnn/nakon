@@ -7,7 +7,7 @@ import Image from "next/image";
 
 function Navbar() {
   return (
-    <div className="flex justify-between items-center shadow-sm px-6 py-3 md:px-[100px] xl:px-[250px] bg-secondary fixed w-full">
+    <div className="flex justify-between items-center shadow-sm px-6 py-3 md:px-[100px] xl:px-[250px] bg-secondary fixed w-full z-10">
       <Image width={120} height={50} src={"/logo.png"} className="m-1" />
       {/* <h1 className="text-2xl font-bold">
         {" "}
