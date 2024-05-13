@@ -1,6 +1,4 @@
-import React from "react";
-import CardFeature from "./CardFeature";
-
+import CardFeature from "@/components/group/cardFeature";
 
 function Feature() {
   return (
