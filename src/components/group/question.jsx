@@ -1,11 +1,10 @@
-import React from "react";
-import { Button } from "../ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "../ui/button";
 
-function Question() {
+function Question({ params }) {
   return (
     <>
-      <div className="flex flex-row justify-between px-[50px] pb-[50px] md:px-[170px] md:pb-[127px] py-72">
+      <div className="flex flex-row justify-between px-[50px] pb-[50px] md:px-[170px] md:pb-[127px] py-60">
         <div className="bg-transparent w-full rounded-lg md:rounded-l-lg  md:px-[97px] md:pb-[73px] flex flex-col justify-between">
           <div class="flex justify-center">
             <Avatar className="w-[100px] h-[100px] flex">
@@ -14,7 +13,9 @@ function Question() {
             </Avatar>
           </div>
 
-          <h3 className="py-[25px] font-bold text-2xl sm:text-4xl text-center">Tanya ke Rizky</h3>
+          <h3 className="py-[25px] font-bold text-2xl sm:text-4xl text-center">
+            {params.username}
+          </h3>
           <p className="font-bold mb-2">Pertanyaan</p>
           <form>
             <textarea
@@ -24,7 +25,9 @@ function Question() {
               placeholder="Tuliskan Pertanyaan Yang Ingin Kamu Sampaikan"
             ></textarea>
 
-            <p className="text-sm text-gray-500 mt-2">Pertanyaanmu akan disampaikan secara anonim</p>
+            <p className="text-sm text-gray-500 mt-2">
+              Pertanyaanmu akan disampaikan secara anonim
+            </p>
             <Button className="mt-5 flex ">Kirim Pertanyaan</Button>
           </form>
         </div>

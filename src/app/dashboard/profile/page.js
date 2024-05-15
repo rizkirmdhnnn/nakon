@@ -25,9 +25,11 @@ function profile() {
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
               <div className="mt-1">
-                <h1 className="text-xl font-bold md:text-2xl">John Doe cuk</h1>
+                <h1 className="text-xl font-bold md:text-2xl">
+                  Heni Marselino
+                </h1>
                 <h1 className="font-medium mb-1 sm:text-base md:text-base">
-                  fjakldfj
+                  example@gmail.com
                 </h1>
                 <Link
                   href={"#"}
