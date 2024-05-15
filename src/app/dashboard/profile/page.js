@@ -1,17 +1,16 @@
-import Navbar from "@/components/group/navbar";
 import Footer from "@/components/group/footer";
+import Navbar from "@/components/group/navbar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import React from "react";
 
 function profile() {
   return (
     <>
       <Navbar />
-      <div className="container pt-[100px]">
+      <div className="container pt-[100px] min-h-screen">
         <div className="">
           <h1 className="text-2xl font-bold">Account</h1>
           <h1 className="text-lg font-medium pb-5">Manage Your Profile</h1>
@@ -27,8 +26,13 @@ function profile() {
               </Avatar>
               <div className="mt-1">
                 <h1 className="text-xl font-bold md:text-2xl">John Doe cuk</h1>
-                <h1 className="font-medium mb-1 sm:text-base md:text-base">fjakldfj</h1>
-                <Link href={"#"} className=" font-medium text-primary sm:text-base md:text-sm ">
+                <h1 className="font-medium mb-1 sm:text-base md:text-base">
+                  fjakldfj
+                </h1>
+                <Link
+                  href={"#"}
+                  className=" font-medium text-primary sm:text-base md:text-sm "
+                >
                   Update
                 </Link>
               </div>
@@ -47,13 +51,24 @@ function profile() {
                       <Label htmlFor="firstName" className="w-full">
                         Nama Depan
                       </Label>
-                      <Input autoComplete="firstName" id="firstName" required type="firstName" />
+                      <Input
+                        autoComplete="firstName"
+                        id="firstName"
+                        required
+                        type="firstName"
+                      />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="lastName" className="w-full">
                         Nama Belakang
                       </Label>
-                      <Input autoComplete="lastName" id="lastName" required type="lastName" className="" />
+                      <Input
+                        autoComplete="lastName"
+                        id="lastName"
+                        required
+                        type="lastName"
+                        className=""
+                      />
                     </div>
                   </div>
 
@@ -61,7 +76,13 @@ function profile() {
                   <div className="mb-4 mt-10">
                     <div className="space-y-2">
                       <Label htmlFor="lastName">Username</Label>
-                      <Input autoComplete="lastName" id="lastName" required type="lastName" className="md:w-[20rem]" />
+                      <Input
+                        autoComplete="lastName"
+                        id="lastName"
+                        required
+                        type="lastName"
+                        className="md:w-[20rem]"
+                      />
                     </div>
                   </div>
 
@@ -70,7 +91,13 @@ function profile() {
                     <div className="mb-4 md:mr-2 md:mb-0 ">
                       <div className="space-y-2">
                         <Label htmlFor="lastName">Email</Label>
-                        <Input autoComplete="lastName" id="lastName" required type="lastName" className="" />
+                        <Input
+                          autoComplete="lastName"
+                          id="lastName"
+                          required
+                          type="lastName"
+                          className=""
+                        />
                       </div>
                     </div>
                     <div className="mt-[29px] md:mr-2 md:mb-0">
@@ -85,18 +112,32 @@ function profile() {
 
                   {/* password form */}
                   <div>
-                    <h1 className="text-xl font-bold pt-5 pb-2">Change Password</h1>
+                    <h1 className="text-xl font-bold pt-5 pb-2">
+                      Change Password
+                    </h1>
                     <div className="mb-4 mt- md:flex gap-5">
                       <div className="mb-4 md:mr-2 md:mb-0">
                         <div className="space-y-2">
                           <Label htmlFor="lastName">Password</Label>
-                          <Input autoComplete="lastName" id="lastName" required type="lastName" className="" />
+                          <Input
+                            autoComplete="lastName"
+                            id="lastName"
+                            required
+                            type="lastName"
+                            className=""
+                          />
                         </div>
                       </div>
                       <div className="mb-4 md:mr-2 md:mb-0">
                         <div className="space-y-2">
                           <Label htmlFor="lastName">New Password</Label>
-                          <Input autoComplete="lastName" id="lastName" required type="lastName" className="" />
+                          <Input
+                            autoComplete="lastName"
+                            id="lastName"
+                            required
+                            type="lastName"
+                            className=""
+                          />
                         </div>
                       </div>
                     </div>

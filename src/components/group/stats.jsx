@@ -8,9 +8,7 @@ function Stats() {
           <div className="my-10">
             <h1 className="font-bold text-4xl mb-5 text-primary">Statistik</h1>
             <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400 items">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque sit
-              voluptatem laudantium, quia sunt iure illo possimus odit et omnis
-              id saepe quae a, magnam iste nam doloremque nihil optio?
+              Statistik pengguna yang menggunakan aplikasi ini (ini bohong)
             </p>
           </div>
         </div>

@@ -12,16 +12,16 @@ function hero() {
         <Image src={"/sembereeee.png"} width={600} height={200} />
         <div>
           <h1 className="mt-20 mb-5 text-4xl pt-5 text-primary font-bold font-poppins text-center">
-            Ini jargonnya nanti
+            "Curious? Ask Anonymously!"
           </h1>
           <p className="text-base sm:text-xl text-center">
-            Kalo orang cupu make platform ini biasanya buat ngungkapin perasaan
-            si, semoga kalian tidak
+            "Jelajahi Rasa Penasaranmu dengan Kebebasan Penuh – Tanya Secara
+            Anonim, Dapatkan Jawaban Tanpa Rasa Khawatir."
           </p>
         </div>
-        <Button asChild size="sm" className="mx-auto gap-1 mt-8">
+        <Button asChild size="sm" className="mx-auto gap-2 mt-8">
           <Link href="/auth/login">
-            View All
+            Cobain
             <ArrowRightCircle className="h-4 w-4" />
           </Link>
         </Button>

@@ -32,7 +32,7 @@ function Dashboard() {
     <>
       <Navbar />
       {/* Statistik akun */}
-      <main className="p-5 md:px-[100px] xl:px-[250px] pt-[100px]">
+      <main className="p-5 md:px-[100px] xl:px-[250px] pt-[100px] min-h-screen">
         <h1 className="text-2xl font-bold">Statistik Akun</h1>
         <p className="text-base leading-10">Lihat statistik akun anda</p>
         <div className="flex flex-1 flex-col gap-4 md:gap-6 ">
@@ -90,7 +90,7 @@ function Dashboard() {
                     </Label>
                     <Input
                       id="link"
-                      defaultValue="https://ui.shadcn.com/docs/installation"
+                      defaultValue="https://nakon.vercel.app/p/aansukawinda"
                       readOnly
                     />
                   </div>

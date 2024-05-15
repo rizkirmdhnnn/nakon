@@ -1,18 +1,26 @@
-import React from "react";
 import { Button } from "@/components/ui/button";
+import { ArrowRightCircle } from "lucide-react";
+import Link from "next/link";
 
 function ShareCode() {
   return (
     <>
-      <section className="mt-[200px]">
-        <div className="container m-auto">
-          <h1 className="text-4xl text-primary font-bold text-center mb-10">Kode Sumber Terbuka</h1>
-          <h3 className="text-base sm:text-xl font-mont font-medium text-center text-gray-400 mb-10">Tenang cuy nakon open source kok. kodenya bisa kamu lihat dengan gratis untuk kepentingan pembelajaran </h3>
-          <div className="flex justify-center py-4">
-            <Button>Get Started</Button>
-          </div>
+      <div className="flex items-center flex-col justify-center pt-[200px] px-6 py-3 md:px-[100px] xl:px-[250px] ">
+        <div>
+          <h1 className="mb-5 text-4xl pt-5 text-primary font-bold font-poppins text-center">
+           Kode Terbuka 
+          </h1>
+          <p className="text-base sm:text-xl text-center">
+            Kode ini bersifat terbuka, silahkan gunakan kode ini untuk keperluan yang baik 
+          </p>
         </div>
-      </section>
+        <Button asChild size="sm" className="mx-auto gap-2 mt-8">
+          <Link href="/auth/login">
+            Cobain
+            <ArrowRightCircle className="h-4 w-4" />
+          </Link>
+        </Button>
+      </div>
     </>
   );
 }
