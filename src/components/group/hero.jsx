@@ -12,11 +12,11 @@ function hero() {
         <Image src={"/sembereeee.png"} width={600} height={200} />
         <div>
           <h1 className="mt-20 mb-5 text-4xl pt-5 text-primary font-bold font-poppins text-center">
-            "Curious? Ask Anonymously!"
+            Curious? Ask Anonymously!
           </h1>
           <p className="text-base sm:text-xl text-center">
-            "Jelajahi Rasa Penasaranmu dengan Kebebasan Penuh - Tanya Secara
-            Anonim, Dapatkan Jawaban Tanpa Rasa Khawatir."
+            Jelajahi Rasa Penasaranmu dengan Kebebasan Penuh - Tanya Secara
+            Anonim, Dapatkan Jawaban Tanpa Rasa Khawatir.
           </p>
         </div>
         <Button asChild size="sm" className="mx-auto gap-2 mt-8">
