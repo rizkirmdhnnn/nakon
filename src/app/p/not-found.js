@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function NotFound() {
   return (
     <>
-      <section class="bg-white dark:bg-gray-900 ">
+      <section>
         <div class="container flex items-center min-h-screen px-6 py-12 flex-col justify-center">
           <Image
             alt="Sign up illustration"

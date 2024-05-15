@@ -1,11 +1,10 @@
-import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 export default function NotFound() {
   return (
     <>
-      <section class="bg-white dark:bg-gray-900 ">
+      <section >
         <div class="container flex items-center min-h-screen px-6 py-12 flex-col justify-center">
           <Image alt="Sign up illustration" className="h-full w-[480px] object-cover " height={10000} src="/sembere.png" width={10000} />
           <div class="flex flex-col items-center max-w-sm mt-10 mx-auto text-center">
