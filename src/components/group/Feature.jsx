@@ -2,10 +2,10 @@ import CardFeature from "@/components/group/cardFeature";
 
 function Feature() {
   return (
-    <div className="px-6 py-3  md:px-[100px]  xl:px-[250px]">
+    <div className="px-6 py-3  md:px-[100px]  xl:px-[250px] mt-[200px]">
       <div className="flex flex-col justify-center text-center items-center">
         <div className="my-10">
-          <h1 className="text-2xl font-bold sm:text-3xl xl:text-3xl mb-5">
+          <h1 className="font-bold text-4xl mb-5 text-primary">
             Fitur
           </h1>
           <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400 items">

@@ -3,7 +3,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription }
 
 export default function CardFeature({ title, description, ...otherProps }) {
   return (
-    <Card {...otherProps}>
+    <Card {...otherProps} className ="bg-secondary outline-none">
       {" "}
       <CardHeader>
         <CardTitle className="text-2xl">{title}</CardTitle>
