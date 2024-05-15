@@ -9,7 +9,7 @@ function Feature() {
             Fitur
           </h1>
           <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400 items">
-            Berbagai fitur yang bisa didapatkan dari platform wakonwae
+            Berbagai fitur yang bisa didapatkan dari platform nakon
           </p>
         </div>
       </div>

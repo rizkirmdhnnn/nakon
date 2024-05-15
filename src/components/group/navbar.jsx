@@ -41,9 +41,17 @@ function Navbar() {
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
+              <Link href={"/dashboard"}>Dashboard</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
               <Link href={"/dashboard/profile"}>Profile</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>Keluar</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href={"/dashboard/leaderboard"}>Leaderboard</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href={"/"}>Keluar</Link>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
