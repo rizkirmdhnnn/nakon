@@ -15,8 +15,8 @@ function hero() {
             "Curious? Ask Anonymously!"
           </h1>
           <p className="text-base sm:text-xl text-center">
-            "Jelajahi Rasa Penasaranmu dengan Kebebasan Penuh – Tanya Secara
-            Anonim, Dapatkan Jawaban Tanpa Rasa Khawatir."
+            "Jelajahi Rasa Penasaranmu dengan Kebebasan Penuh - Tanya Secara
+            Anonim, Dapatkan Jawaban Tanpa Rasa Khawatir."
           </p>
         </div>
         <Button asChild size="sm" className="mx-auto gap-2 mt-8">
