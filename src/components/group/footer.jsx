@@ -6,7 +6,10 @@ function CustomFooter() {
       <footer className="shadow bg-secondary dark:bg-secondary mt-20 sticky ">
         <div className="w-full mx-auto px-6 py-10 md:px-[100px] xl:px-[250px]">
           <div className="sm:flex sm:items-center sm:justify-between">
-            <div href="" className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
+            <div
+              href=""
+              className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse"
+            >
               <h1 className="text-2xl font-bold">
                 {" "}
                 <Link href="/">Nakon</Link>
@@ -19,15 +22,11 @@ function CustomFooter() {
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:underline me-4 md:me-6">
-                  semebereeeee
+                <a href="#" className=" hover:underline me-4 md:me-6">
+                  Source Code
                 </a>
               </li>
-              <li>
-                <a href="#" className="hover:underline me-4 md:me-6">
-                  sembere-sembere
-                </a>
-              </li>
+
               <li>
                 <a href="#" className="hover:underline">
                   Keluar
