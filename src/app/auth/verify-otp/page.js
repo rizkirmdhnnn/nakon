@@ -8,13 +8,10 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 
-import Link from "next/link";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import Image from "next/image";
-import { Card } from "@/components/ui/card";
 import Navbar from "@/components/group/navbar";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import Link from "next/link";
 
 function page() {
   return (
@@ -34,7 +31,7 @@ function page() {
             <InputOTPControlled />
             <div>
               <Button className="w-full mt-7" type="submit">
-                Verifikasi
+                <Link href="/dashboard"> Verifikasi</Link>
               </Button>
             </div>
           </form>

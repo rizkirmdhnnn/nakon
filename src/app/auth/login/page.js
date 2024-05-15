@@ -25,7 +25,7 @@ function page() {
               </Link>
             </p>
           </div>
-          <form action="#" className="space-y-6" method="POST">
+          <div action="#" className="space-y-6" method="POST">
             <div className="space-y-2">
               <Label htmlFor="email">Email address</Label>
               <Input autoComplete="email" id="email" required type="email" />
@@ -49,11 +49,11 @@ function page() {
               />
             </div>
             <div>
-              <Button className="w-full" type="submit">
-                Login
+              <Button className="w-full">
+                <Link href="/dashboard">Sign In</Link>
               </Button>
             </div>
-          </form>
+          </div>
         </Card>
         {/* <div className="relative hidden h-full w-full max-w-md items-center justify-center lg:flex">
         <Image
