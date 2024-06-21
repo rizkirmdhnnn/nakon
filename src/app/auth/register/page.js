@@ -14,57 +14,57 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
 function RegisterPage() {
-  // const [formData, setFormData] = useState({
-  //   firstName: "",
-  //   lastName: "",
-  //   username: "",
-  //   email: "",
-  //   password: "",
-  //   name: "balskdfj",
-  //   password_confirmation: "rizkirmdhn",
-  // });
+  const [formData, setFormData] = useState({
+    firstname: "",
+    lastname: "",
+    username: "",
+    email: "",
+    password: "",
+  });
   const [error, setError] = useState(null);
   const [open, setOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     [name]: value,
-  //   }));
-  // };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
-  // const handleSubmit = async (e) => {
-  //   setIsSubmitting(true);
-  //   e.preventDefault();
-  //   try {
-  //     const response = await fetch(
-  //       "https://takonwae-api.rizpedia.com/api/register",
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify(formData),
-  //       }
-  //     );
-  //     if (response.ok) {
-  //       setError(null);
-  //     } else {
-  //       const data = await response.json();
-  //       setError(data.message);
-  //     }
-  //   } catch (error) {
-  //     setError("Terjadi kesalahan. Silakan coba lagi.");
-  //   }
-  //   setOpen(true);
-  //   setIsSubmitting(false);
-  // };
+  const handleSubmit = async (e) => {
+    setIsSubmitting(true);
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        "http://127.0.0.1:8000/api/v1/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+      console.log(response.json());
+      if (response.ok) {
+        setError(null);
+      } else {
+        const data = await response.json();
+        setError(data.message);
+      }
+    } catch (error) {
+      setError("Terjadi kesalahan. Silakan coba lagi.");
+    }
+    setOpen(true);
+    setIsSubmitting(false);
+  };
 
   const handleCloseAlert = () => {
     setOpen(false);
@@ -90,27 +90,42 @@ function RegisterPage() {
             </p>
           </div>
 
-          {/* <form onSubmit={handleSubmit}> */}
-          <div>
+          <form onSubmit={handleSubmit}>
             <div className="space-y-2 md:space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="first-name">First name</Label>
                   <Input
-                    id="first-name"
-                    name="firstName"
+                    id="firstname"
+                    name="firstname"
                     required
                     type="text"
+                    value={formData.firstname}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="last-name">Last name</Label>
-                  <Input id="last-name" name="lastName" required type="text" />
+                  <Input
+                    id="lastname"
+                    name="lastname"
+                    value={formData.lastname}
+                    onChange={handleChange}
+                    required
+                    type="text"
+                  />
                 </div>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="username">Username</Label>
-                <Input id="username" name="username" required type="text" />
+                <Input
+                  id="username"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleChange}
+                  required
+                  type="text"
+                />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email">Email address</Label>
@@ -118,6 +133,8 @@ function RegisterPage() {
                   autoComplete="email"
                   id="email"
                   name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   required
                   type="email"
                 />
@@ -128,6 +145,8 @@ function RegisterPage() {
                   autoComplete="current-password"
                   id="password"
                   name="password"
+                  value={formData.password}
+                  onChange={handleChange}
                   required
                   type="password"
                 />
@@ -138,16 +157,15 @@ function RegisterPage() {
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  <Link href="/auth/verify-otp">Daftar</Link>
-                  {/* {isSubmitting ? (
+                  {isSubmitting ? (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   ) : (
                     "Daftar"
-                  )} */}
+                  )}
                 </Button>
               </div>
             </div>
-          </div>
+          </form>
           <AlertDialog open={open} onOpenChange={handleCloseAlert}>
             <AlertDialogContent>
               <AlertDialogHeader>
