@@ -1,16 +1,86 @@
+"use client";
+
 import Navbar from "@/components/group/navbar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
-function page() {
+export default function Page() {
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [error, setError] = useState(null);
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    setIsSubmitting(true);
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        "https://nakonapi.rizpedia.com/api/v1/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+      const data = await response.json();
+      if (response.ok) {
+        console.log(data);
+
+        localStorage.setItem("user", JSON.stringify(data.data.user));
+        localStorage.setItem("token", data.data.token);
+
+        // redirect to dashboard
+        router.push("/dashboard");
+        setError(null);
+      } else {
+        setError(data.message);
+        setOpen(true);
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+    setIsSubmitting(false);
+  };
+
+  const handleCloseAlert = () => {
+    setOpen(false);
+  };
+
   return (
     <>
       <Navbar />
-      <div className="flex min-h-screen w-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8 ">
-        <Card className="w-full max-w-md space-y-8 rounded-lg bg-secondary p-8 shadow-lg ">
+      <div className="flex min-h-screen w-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <Card className="w-full max-w-md space-y-8 rounded-lg bg-secondary p-8 shadow-lg">
           <div>
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-card-foreground dark:text-card-foreground">
               Sign In Account
@@ -25,10 +95,18 @@ function page() {
               </Link>
             </p>
           </div>
-          <div action="#" className="space-y-6" method="POST">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="email">Email address</Label>
-              <Input autoComplete="email" id="email" required type="email" />
+              <Input
+                autoComplete="email"
+                name="email"
+                id="email"
+                required
+                type="email"
+                onChange={handleChange}
+                value={formData.email}
+              />
             </div>
             <div className="space-y-2">
               <div className="flex">
@@ -40,33 +118,54 @@ function page() {
                   Forgot your password?
                 </Link>
               </div>
-
               <Input
                 autoComplete="current-password"
+                name="password"
                 id="password"
                 required
                 type="password"
+                onChange={handleChange}
+                value={formData.password}
               />
             </div>
             <div>
-              <Button className="w-full">
-                <Link href="/dashboard">Sign In</Link>
+              <Button className="w-full" type="submit">
+                {isSubmitting ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                  "Sign In"
+                )}
               </Button>
             </div>
-          </div>
+          </form>
         </Card>
-        {/* <div className="relative hidden h-full w-full max-w-md items-center justify-center lg:flex">
-        <Image
-          alt="Sign up illustration"
-          className="h-full w-full object-cover"
-          height={10000}
-          src="/Rectangle 5.png"
-          width={10000}
-        />
-      </div> */}
+        <AlertDialog open={open} onOpenChange={handleCloseAlert}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              {error ? (
+                <AlertDialogTitle>Error</AlertDialogTitle>
+              ) : (
+                <AlertDialogTitle>Pendaftaran Berhasil</AlertDialogTitle>
+              )}
+              <AlertDialogDescription>
+                {error || "Silahkan cek email anda untuk proses verifikasi"}
+              </AlertDialogDescription>
+              <AlertDialogFooter>
+                {error ? (
+                  <Button variant="outline" onClick={handleCloseAlert}>
+                    Close
+                  </Button>
+                ) : (
+                  <Link href={"/auth/verify-otp"}>
+                    {" "}
+                    <AlertDialogAction>Continue</AlertDialogAction>
+                  </Link>
+                )}
+              </AlertDialogFooter>
+            </AlertDialogHeader>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </>
   );
 }
-
-export default page;
