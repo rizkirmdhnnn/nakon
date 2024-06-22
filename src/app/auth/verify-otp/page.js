@@ -23,13 +23,11 @@ import {
   AlertDialogHeader,
 } from "@/components/ui/alert-dialog";
 import Link from "next/link";
+
 //get user data from local storage
-let user;
-if (typeof window !== "undefined") {
-  user = JSON.parse(localStorage.getItem("user"));
-  if (!user) {
-    window.location.href = "/";
-  }
+const user = JSON.parse(localStorage.getItem("user"));
+if (!user) {
+  window.location.href = "/";
 }
 
 function Page() {
