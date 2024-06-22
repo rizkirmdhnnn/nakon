@@ -12,7 +12,7 @@ import Navbar from "@/components/group/navbar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -25,16 +25,21 @@ import {
 import Link from "next/link";
 
 //get user data from local storage
-const user = JSON.parse(localStorage.getItem("user"));
-if (!user) {
-  window.location.href = "/";
-}
-
 function Page() {
+  const [user, setUser] = useState(null);
   const [value, setValue] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) {
+      setUser(storedUser);
+    } else {
+      window.location.href = "/";
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

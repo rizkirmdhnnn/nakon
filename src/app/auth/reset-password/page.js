@@ -11,9 +11,16 @@ import { Check } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { InputOTPControlled } from "../verify-otp/page";
+import { useState } from "react";
+
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
 
 export default function ResetPassword() {
+  const [value, setValue] = useState("");
   const [open, setOpen] = React.useState(false);
   const [openstatus, setOpenStatus] = React.useState(false);
 
@@ -87,7 +94,22 @@ export default function ResetPassword() {
                   </p>
                 </div>
                 <div action="#" className="space-y-6 " method="POST">
-                  <InputOTPControlled />
+                  <div className="space-y-2 flex flex-col justify-center items-center">
+                    <InputOTP
+                      maxLength={6}
+                      value={value}
+                      onChange={(value) => setValue(value)}
+                    >
+                      <InputOTPGroup className="">
+                        <InputOTPSlot index={0} />
+                        <InputOTPSlot index={1} />
+                        <InputOTPSlot index={2} />
+                        <InputOTPSlot index={3} />
+                        <InputOTPSlot index={4} />
+                        <InputOTPSlot index={5} />
+                      </InputOTPGroup>
+                    </InputOTP>
+                  </div>
                   <div className="flex justify-center">
                     <Button
                       className="w-1/2 mt-7"
