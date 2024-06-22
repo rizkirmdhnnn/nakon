@@ -24,7 +24,6 @@ import {
 } from "@/components/ui/alert-dialog";
 import Link from "next/link";
 
-//get user data from local storage
 function Page() {
   const [user, setUser] = useState(null);
   const [value, setValue] = useState("");
@@ -51,7 +50,7 @@ function Page() {
     });
     try {
       const response = await fetch(
-        "http://178.128.126.251:8000/api/v1/auth/verify-user",
+        "https://nakonapi.rizpedia.com/api/v1/auth/verify-user",
         {
           method: "POST",
           headers: {

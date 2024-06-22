@@ -43,7 +43,7 @@ function RegisterPage() {
     e.preventDefault();
     try {
       const response = await fetch(
-        "http://178.128.126.251:8000/api/v1/auth/register",
+        "https://nakonapi.rizpedia.com/api/v1/auth/register",
         {
           method: "POST",
           headers: {
