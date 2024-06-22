@@ -6,44 +6,44 @@ function Feature() {
       <div className="flex flex-col justify-center text-center items-center">
         <div className="my-10">
           <h1 className="font-bold text-4xl mb-5 text-primary">
-            Fitur
+            Feature of Nakon
           </h1>
           <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400 items">
-            Berbagai fitur yang bisa didapatkan dari platform nakon
+            Features that you can get from the nakon platform
           </p>
         </div>
       </div>
       <div className="grid gap-4 md:grid-cols-3 md:grid-rows-2">
         <CardFeature
-          title={"Gratis Tanpa Iklan"}
-          description={"Bisa digunakan secara gratis tanpa gangguan iklan."}
+          title={"no ads"}
+          description={"free and no ads, forever!"}
         />
         <CardFeature
-          title={"Mudah Dibagikan"}
+          title={"easy to share"}
           description={
-            "Kamu bisa membagikan laman publik dan pertanyaan kepada siapa saja yang diinginkan dengan cepat"
+            "you can share the public page and questions to anyone you want quickly"
           }
         />
         <CardFeature
-          title={"Kontrol Penuh"}
+          title={"full privacy control"}
           description={
-            "Kamu bisa menentukan apakah sebuah pertanyaan bisa dilihat orang lain atau tidak, bisa memilih untuk tidak dilihat di laman eksplor, bisa menghapus akun seutuhnya"
+            "You can determine whether a question can be seen by others or not, can choose not to be seen on the explore page, can delete the account entirely"
           }
         />
         <CardFeature
-          title={"Baca dan Buang"}
+          title={"read once, delete forever"}
           description={
-            "Tidak perlu lama-lama menyimpan pertanyaan, setelah dibaca kami akan menghapus data pertanyaan kamu seutuhnya"
+            "No need to keep questions for a long time, after reading we will delete your question data entirely"
           }
         />
         <CardFeature
-          title={"Otentikasi Mudah"}
-          description={"Cukup isi data diri dan sudah bisa dipakai"}
+          title={"Easy Authentication"}
+          description={"just fill in your personal data and you can use it"}
         />
         <CardFeature
-          title={"Kode Sumber Terbuka"}
+          title={"Open Source Code"}
           description={
-            "Penasaran bagaimana cara kerjanya? Langsung saja cek apa yang dilakukan di balik layar dengan melihat langsung kode sumbernya"
+            "Curious how it works? Just check what's going on behind the scenes by looking directly at the source code"
           }
         />
       </div>

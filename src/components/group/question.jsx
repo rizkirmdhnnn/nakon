@@ -16,7 +16,7 @@ function Question({ params }) {
           <h3 className="py-[25px] font-bold text-2xl sm:text-4xl text-center">
             {params.username}
           </h3>
-          <p className="font-bold mb-2">Pertanyaan</p>
+          <p className="font-bold mb-2">Questions</p>
           <form>
             <textarea
               id="chat"
@@ -26,9 +26,9 @@ function Question({ params }) {
             ></textarea>
 
             <p className="text-sm text-gray-500 mt-2">
-              Pertanyaanmu akan disampaikan secara anonim
+              your question will be sent anonymously
             </p>
-            <Button className="mt-5 flex ">Kirim Pertanyaan</Button>
+            <Button className="mt-5 flex ">send the question</Button>
           </form>
         </div>
       </div>

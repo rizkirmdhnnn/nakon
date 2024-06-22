@@ -85,10 +85,10 @@ function Page() {
         <Card className="w-full max-w-md space-y-8 rounded-lg bg-secondary p-8 shadow-lg ">
           <div>
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-card-foreground dark:text-card-foreground">
-              Masukan Kode Verifikasi
+              insert your verification code
             </h2>
             <p className="mt-2 text-center text-sm text-card-foreground dark:text-card-foreground">
-              Cek email untuk mendapatkan kode
+              please check your email for the verification code
             </p>
           </div>
           <form onSubmit={handleSubmit}>
@@ -129,7 +129,7 @@ function Page() {
               {error ? (
                 <AlertDialogTitle>Error</AlertDialogTitle>
               ) : (
-                <AlertDialogTitle>Pendaftaran Berhasil</AlertDialogTitle>
+                <AlertDialogTitle>Register Success</AlertDialogTitle>
               )}
               <AlertDialogDescription>
                 {error || "Verfikasi email berhasil, silahkan login."}

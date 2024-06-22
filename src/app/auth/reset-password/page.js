@@ -57,7 +57,7 @@ export default function ResetPassword() {
                 <div className="space-y-2 ">
                   <h1 className="text-3xl font-bold">Lupa Password</h1>
                   <p className="text-gray-500 dark:text-gray-400">
-                    Masukan email yang terdaftar untuk mereset password
+                   insert your email to reset password
                   </p>
                 </div>
                 <div className="space-y-4">
@@ -86,11 +86,10 @@ export default function ResetPassword() {
               <div className="w-full max-w-md space-y-8 p-8 shadow-lg ">
                 <div>
                   <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-card-foreground dark:text-card-foreground">
-                    Verifikasi Email
+                    Verify Email
                   </h2>
                   <p className="mt-2 text-center text-sm text-card-foreground dark:text-card-foreground">
-                    Silahkan masukan 6 digit kode yang baru saja dikirim ke
-                    email
+                    please enter the verification code sent to your email
                   </p>
                 </div>
                 <div action="#" className="space-y-6 " method="POST">
@@ -128,17 +127,17 @@ export default function ResetPassword() {
               <div className="w-full max-w-md space-y-8 p-8">
                 <div>
                   <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-card-foreground dark:text-card-foreground">
-                    Berhasil
+                    success
                   </h2>
                   <p className="mt-2 text-center text-sm text-card-foreground dark:text-card-foreground">
-                    Kode yang anda masukan benar
+                    kode that you entered is correct
                   </p>
                   <div action="#" className="space-y-6 mt-10" method="POST">
                     <Check size={48} className="w-full" />
                     <div className="flex justify-center">
                       <Button className="w-1/2 mt-7">
                         <Link href={"./reset-password/change"}>
-                          Selanjutnya
+                          Next
                         </Link>
                       </Button>
                     </div>

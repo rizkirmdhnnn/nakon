@@ -8,7 +8,7 @@ function Stats() {
           <div className="my-10">
             <h1 className="font-bold text-4xl mb-5 text-primary">Statistik</h1>
             <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400 items">
-              Statistik pengguna yang menggunakan aplikasi ini (ini bohong)
+            user statiscs on the nakon platform(wannabe)
             </p>
           </div>
         </div>
@@ -18,25 +18,25 @@ function Stats() {
               <dt className="mb-2 text-3xl font-extrabold  text-gray-500 dark:text-gray-400 ">
                 73M+
               </dt>
-              <dd className="text-gray-500 dark:text-gray-400">Pengunjung</dd>
+              <dd className="text-gray-500 dark:text-gray-400">visitors</dd>
             </div>
             <div className="flex flex-col items-center justify-center">
               <dt className="mb-2 text-3xl font-extrabold text-gray-500 dark:text-gray-400">
                 10M+
               </dt>
-              <dd className="text-gray-500 dark:text-gray-400">Pertanyaan</dd>
+              <dd className="text-gray-500 dark:text-gray-400">Questions</dd>
             </div>
             <div className="flex flex-col items-center justify-center">
               <dt className="mb-2 text-3xl font-extrabold text-gray-500 dark:text-gray-400">
                 10M+
               </dt>
-              <dd className="text-gray-500 dark:text-gray-400">Akun</dd>
+              <dd className="text-gray-500 dark:text-gray-400">Accounts</dd>
             </div>
             <div className="flex flex-col items-center justify-center">
               <dt className="mb-2 text-3xl font-extrabold text-gray-500 dark:text-gray-400">
                 1B+
               </dt>
-              <dd className="text-gray-500 dark:text-gray-400">Kontributor</dd>
+              <dd className="text-gray-500 dark:text-gray-400">Contributors</dd>
             </div>
             <div className="flex flex-col items-center justify-center">
               <dt className="mb-2 text-3xl font-extrabold text-gray-500 dark:text-gray-400">
@@ -48,7 +48,7 @@ function Stats() {
               <dt className="mb-2 text-3xl font-extrabold text-gray-500 dark:text-gray-400">
                 4M+
               </dt>
-              <dd className="text-gray-500 dark:text-gray-400">Organisasi</dd>
+              <dd className="text-gray-500 dark:text-gray-400">Organisations</dd>
             </div>
           </dl>
         </Card>

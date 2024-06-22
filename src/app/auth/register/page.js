@@ -19,13 +19,13 @@ import Link from "next/link";
 import { useState } from "react";
 
 function RegisterPage() {
-  const [formData, setFormData] = useState({
-    firstname: "",
-    lastname: "",
-    username: "",
-    email: "",
-    password: "",
-  });
+    const [formData, setFormData] = useState({
+      firstname: "",
+      lastname: "",
+      username: "",
+      email: "",
+      password: "",
+    });
   const [error, setError] = useState(null);
   const [open, setOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -173,7 +173,7 @@ function RegisterPage() {
                 {error ? (
                   <AlertDialogTitle>Error</AlertDialogTitle>
                 ) : (
-                  <AlertDialogTitle>Pendaftaran Berhasil</AlertDialogTitle>
+                  <AlertDialogTitle>Register Success</AlertDialogTitle>
                 )}
                 <AlertDialogDescription>
                   {error || "Silahkan cek email anda untuk proses verifikasi"}

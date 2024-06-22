@@ -1,3 +1,4 @@
+"use client"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,19 +12,31 @@ import { ModeToggle } from "@/components/toggleTheme";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from "react";
+
 
 function Navbar() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const dataUser = localStorage.getItem("user");
+    if (dataUser) {
+      setUser(JSON.parse(dataUser));
+    }
+  }, []);
+
   return (
     <div className="flex justify-between items-center shadow-sm px-6 py-3 md:px-[100px] xl:px-[250px] bg-secondary fixed w-full z-10">
-      <Link href={"/"}>
-        <Image
-          width={120}
-          height={50}
-          src={"/logo.png"}
-          alt="nakon"
-          className="m-1"
-        ></Image>
-      </Link>
+        <Link href={"/"}>
+          <Image
+            width={120}
+            height={50}
+            src={"/logo.png"}
+            alt="nakon"
+            className="m-1"
+          ></Image>
+        </Link>
+      
 
       {/* <h1 className="text-2xl font-bold">
         {" "}
@@ -31,7 +44,7 @@ function Navbar() {
       </h1> */}
       <div className="flex items-center gap-4">
         <ModeToggle />
-        <DropdownMenu>
+        {user ? (<DropdownMenu>
           <DropdownMenuTrigger>
             <Avatar>
               <AvatarImage src="https://github.com/shadcn.png" />
@@ -54,7 +67,8 @@ function Navbar() {
               <Link href={"/"}>Keluar</Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
-        </DropdownMenu>
+        </DropdownMenu>) : (null)}
+        
       </div>
     </div>
   );

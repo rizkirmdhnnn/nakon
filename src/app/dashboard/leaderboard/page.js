@@ -19,7 +19,7 @@ function page() {
           <div>
             <h1 className="text-2xl font-bold">Leaderboard</h1>
             <p className="text-base md:leading-10 leading-[20px]">
-              User dengan pesan terbanyak
+              User with the most messages
             </p>
           </div>
         </div>

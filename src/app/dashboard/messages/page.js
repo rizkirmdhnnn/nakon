@@ -16,9 +16,9 @@ function page() {
       <main className="p-5 md:px-[100px] xl:px-[250px]  pt-[100px] min-h-screen">
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-2xl font-bold">Semua Pesan</h1>
+            <h1 className="text-2xl font-bold">All Messages</h1>
             <p className="text-base md:leading-10 leading-[20px]">
-              Lihat semua pesan masuk
+              see all messages from curious people
             </p>
           </div>
           <Select>
@@ -26,8 +26,8 @@ function page() {
               <SelectValue placeholder="Filter" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="dibaca">Sudah dibaca</SelectItem>
-              <SelectItem value="belumdibaca">Belum dibaca</SelectItem>
+              <SelectItem value="dibaca">Seen</SelectItem>
+              <SelectItem value="belumdibaca">unread</SelectItem>
             </SelectContent>
           </Select>
         </div>

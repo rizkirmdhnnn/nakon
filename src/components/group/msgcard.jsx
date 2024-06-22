@@ -28,7 +28,7 @@ export default function MsgCard({ question, date, message, id }) {
       </CardContent>
       <CardFooter className="float-end">
         <Button onClick={handleButtonClick}>
-          Selengkapnya
+          More
           {/* <Link href={`#${id}`}>Selengkapnya</Link> */}
         </Button>
       </CardFooter>
@@ -47,9 +47,9 @@ export default function MsgCard({ question, date, message, id }) {
             {/* <AlertDialogCancel>Tandai Sudah Dibaca</AlertDialogCancel>
             <AlertDialogAction>Hapus</AlertDialogAction> */}
             <div className="flex justify-between w-full gap-3">
-              <Button className="w-1/2">Tandai Sudah Dibaca</Button>
+              <Button className="w-1/2">Mark As Read</Button>
               <Button variant="outlineDestructive" className="w-1/2">
-                Hapus
+                Delete
               </Button>
             </div>
           </AlertDialogFooter>

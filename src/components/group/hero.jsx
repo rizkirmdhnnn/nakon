@@ -14,14 +14,15 @@ function hero() {
           <h1 className="mt-20 mb-5 text-4xl pt-5 text-primary font-bold font-poppins text-center">
             Curious? Ask Anonymously!
           </h1>
+
           <p className="text-base sm:text-xl text-center">
-            Jelajahi Rasa Penasaranmu dengan Kebebasan Penuh - Tanya Secara
-            Anonim, Dapatkan Jawaban Tanpa Rasa Khawatir.
+            explore your curiosity with full freedom - ask anonymously, get
+            answers without worry.
           </p>
         </div>
         <Button asChild size="sm" className="mx-auto gap-2 mt-8">
           <Link href="/auth/login">
-            Cobain
+            try it now
             <ArrowRightCircle className="h-4 w-4" />
           </Link>
         </Button>

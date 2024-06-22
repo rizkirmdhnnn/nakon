@@ -47,11 +47,11 @@ function profile() {
             <div className="grid grid-cols-12">
               <div className="col-span-10">
                 <form>
-                  <h1 className="text-xl font-bold py-4">Detail</h1>
+                  <h1 className="text-xl font-bold py-4">Details</h1>
                   <div className="mb-4 md:flex gap-10 ">
                     <div className="space-y-2 ">
                       <Label htmlFor="firstName" className="w-full">
-                        Nama Depan
+                        First Name
                       </Label>
                       <Input
                         autoComplete="firstName"
@@ -62,7 +62,7 @@ function profile() {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="lastName" className="w-full">
-                        Nama Belakang
+                        Last Name
                       </Label>
                       <Input
                         autoComplete="lastName"
@@ -103,7 +103,7 @@ function profile() {
                       </div>
                     </div>
                     <div className="mt-[29px] md:mr-2 md:mb-0">
-                      <Button>Verifikasi</Button>
+                      <Button>Verify</Button>
                     </div>
                   </div>
 

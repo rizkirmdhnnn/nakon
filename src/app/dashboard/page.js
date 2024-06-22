@@ -33,8 +33,8 @@ function Dashboard() {
       <Navbar />
       {/* Statistik akun */}
       <main className="p-5 md:px-[100px] xl:px-[250px] pt-[100px] min-h-screen">
-        <h1 className="text-2xl font-bold">Statistik Akun</h1>
-        <p className="text-base leading-10">Lihat statistik akun anda</p>
+        <h1 className="text-2xl font-bold">Account Statistics</h1>
+        <p className="text-base leading-10">See Your Account Statistics</p>
         <div className="flex flex-1 flex-col gap-4 md:gap-6 ">
           <div className="flex flex-1 flex-col gap-4 md:gap-8"></div>
           <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
@@ -44,14 +44,14 @@ function Dashboard() {
             >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  Total Kunjungan Keseluruhan
+                  total visitors
                 </CardTitle>
                 <Users className="h-4 w- q4 text-primary" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">+278.350</div>
                 <p className="text-xs text-muted-foreground">
-                  sejak 20 oktober 2023
+                  since october 2023
                 </p>
               </CardContent>
             </Card>
@@ -61,14 +61,14 @@ function Dashboard() {
             >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  Total Pesan Diterima
+                  total messages received
                 </CardTitle>
                 <MessageCircleIcon className="h-4 w-4 text-primary" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">270</div>
                 <p className="text-xs text-muted-foreground">
-                  Hari ini bertambah 10 pesan
+                  10 messages added today
                 </p>
               </CardContent>
             </Card>
@@ -118,9 +118,9 @@ function Dashboard() {
         </div>
         <div className="flex mt-[50px]">
           <div>
-            <h1 className="text-2xl font-bold">Daftar Pertanyaan</h1>
+            <h1 className="text-2xl font-bold">List of questions</h1>
             <p className="text-base mt-2">
-              Lihat semua daftar pertanyaan yang tersedia
+              see the list of questions that have been asked
             </p>
           </div>
           <Button asChild size="sm" className="ml-auto gap-1 mt-8">
@@ -193,7 +193,7 @@ function Dashboard() {
             <CardHeader className="flex flex-row items-center">
               <div className="grid gap-2">
                 <CardTitle>Leaderboard</CardTitle>
-                <CardDescription>User dengan pesan terbanyak</CardDescription>
+                <CardDescription>User with the most questions</CardDescription>
               </div>
               <Button asChild size="sm" className="ml-auto gap-1">
                 <Link href="#">
@@ -207,7 +207,7 @@ function Dashboard() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>Username</TableHead>
-                    <TableHead className="text-right">Total</TableHead>
+                    <TableHead className="text-right">Totals</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
