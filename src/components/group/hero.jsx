@@ -16,13 +16,12 @@ function hero() {
           </h1>
 
           <p className="text-base sm:text-xl text-center">
-            explore your curiosity with full freedom - ask anonymously, get
-            answers without worry.
+            Explore your curiosity with full freedom - ask anonymously, get answers without worry.
           </p>
         </div>
         <Button asChild size="sm" className="mx-auto gap-2 mt-8">
           <Link href="/auth/login">
-            try it now
+            Try it now
             <ArrowRightCircle className="h-4 w-4" />
           </Link>
         </Button>

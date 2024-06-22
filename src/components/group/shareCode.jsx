@@ -11,12 +11,12 @@ function ShareCode() {
            Open Source Code 
           </h1>
           <p className="text-base sm:text-xl text-center">
-           open source code, please use this code for good purposes
+           Open source code, please use this code for good purposes
           </p>
         </div>
         <Button asChild size="sm" className="mx-auto gap-2 mt-8">
           <Link href="/auth/login">
-            try it now
+            go to code
             <ArrowRightCircle className="h-4 w-4" />
           </Link>
         </Button>

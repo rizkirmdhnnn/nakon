@@ -44,14 +44,14 @@ function Dashboard() {
             >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  total visitors
+                  Total visitors
                 </CardTitle>
                 <Users className="h-4 w- q4 text-primary" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">+278.350</div>
                 <p className="text-xs text-muted-foreground">
-                  since october 2023
+                  Since october 2023
                 </p>
               </CardContent>
             </Card>
@@ -61,7 +61,7 @@ function Dashboard() {
             >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  total messages received
+                  Total messages received
                 </CardTitle>
                 <MessageCircleIcon className="h-4 w-4 text-primary" />
               </CardHeader>
@@ -120,7 +120,7 @@ function Dashboard() {
           <div>
             <h1 className="text-2xl font-bold">List of questions</h1>
             <p className="text-base mt-2">
-              see the list of questions that have been asked
+              See the list of questions that have been asked
             </p>
           </div>
           <Button asChild size="sm" className="ml-auto gap-1 mt-8">

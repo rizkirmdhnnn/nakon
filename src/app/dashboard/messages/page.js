@@ -18,7 +18,7 @@ function page() {
           <div>
             <h1 className="text-2xl font-bold">All Messages</h1>
             <p className="text-base md:leading-10 leading-[20px]">
-              see all messages from curious people
+              See all messages from curious people
             </p>
           </div>
           <Select>
@@ -27,7 +27,7 @@ function page() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="dibaca">Seen</SelectItem>
-              <SelectItem value="belumdibaca">unread</SelectItem>
+              <SelectItem value="belumdibaca">Unread</SelectItem>
             </SelectContent>
           </Select>
         </div>

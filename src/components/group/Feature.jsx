@@ -15,35 +15,35 @@ function Feature() {
       </div>
       <div className="grid gap-4 md:grid-cols-3 md:grid-rows-2">
         <CardFeature
-          title={"no ads"}
-          description={"free and no ads, forever!"}
+          title={"No ads"}
+          description={"Free and no ads, forever!"}
         />
         <CardFeature
-          title={"easy to share"}
+          title={"Easy to share"}
           description={
-            "you can share the public page and questions to anyone you want quickly"
+            "You can share the public page and questions to anyone you want quickly."
           }
         />
         <CardFeature
-          title={"full privacy control"}
+          title={"Full privacy control"}
           description={
-            "You can determine whether a question can be seen by others or not, can choose not to be seen on the explore page, can delete the account entirely"
+            "You can determine whether a question can be seen by others or not, can choose not to be seen on the explore page, can delete the account entirely."
           }
         />
         <CardFeature
-          title={"read once, delete forever"}
+          title={"Read once, delete forever"}
           description={
-            "No need to keep questions for a long time, after reading we will delete your question data entirely"
+            "No need to keep questions for a long time, after reading we will delete your question data entirely."
           }
         />
         <CardFeature
-          title={"Easy Authentication"}
-          description={"just fill in your personal data and you can use it"}
+          title={"Easy authentication"}
+          description={"Just fill in your personal data and you can use it."}
         />
         <CardFeature
           title={"Open Source Code"}
           description={
-            "Curious how it works? Just check what's going on behind the scenes by looking directly at the source code"
+            "Curious how it works? Just check what's going on behind the scenes by looking directly at the source code."
           }
         />
       </div>
