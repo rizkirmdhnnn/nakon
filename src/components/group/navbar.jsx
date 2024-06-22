@@ -20,6 +20,7 @@ function Navbar() {
           width={120}
           height={50}
           src={"/logo.png"}
+          alt="nakon"
           className="m-1"
         ></Image>
       </Link>

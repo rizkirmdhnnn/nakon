@@ -50,13 +50,14 @@ function RegisterPage() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(formData),
-        }
+        },
       );
-      console.log(response.json());
+      const data = await response.json();
       if (response.ok) {
+        // save data to localstorage
+        localStorage.setItem("user", JSON.stringify(data.data.user));
         setError(null);
       } else {
-        const data = await response.json();
         setError(data.message);
       }
     } catch (error) {

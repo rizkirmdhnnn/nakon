@@ -11,9 +11,71 @@ import {
 import Navbar from "@/components/group/navbar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Loader2 } from "lucide-react";
+import { useState } from "react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogTitle,
+  AlertDialogFooter,
+  AlertDialogHeader,
+} from "@/components/ui/alert-dialog";
 import Link from "next/link";
+//get user data from local storage
+let user;
+if (typeof window !== "undefined") {
+  user = JSON.parse(localStorage.getItem("user"));
+  if (!user) {
+    window.location.href = "/";
+  }
+}
 
-function page() {
+function Page() {
+  const [value, setValue] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState(null);
+  const [open, setOpen] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const dataBody = JSON.stringify({
+      otp: value.toString(),
+      id: user.id.toString(),
+    });
+    try {
+      const response = await fetch(
+        "http://178.128.126.251:8000/api/v1/auth/verify-user",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: dataBody,
+        },
+      );
+      const data = await response.json();
+      console.log(data);
+      if (response.ok) {
+        setOpen(true);
+        setError(null);
+      } else {
+        setOpen(true);
+        setError(data.message);
+      }
+    } catch (error) {
+      setError(data.message);
+    }
+    setIsSubmitting(false); // Reset state isSubmitting
+  };
+
+  const handleCloseAlert = () => {
+    setOpen(false);
+  };
+
   return (
     <>
       <Navbar />
@@ -27,57 +89,67 @@ function page() {
               Cek email untuk mendapatkan kode
             </p>
           </div>
-          <form action="#" className="space-y-6 " method="POST">
-            <InputOTPControlled />
+          <form onSubmit={handleSubmit}>
+            <div className="space-y-2 flex flex-col justify-center items-center">
+              <InputOTP
+                maxLength={6}
+                value={value}
+                onChange={(value) => setValue(value)}
+              >
+                <InputOTPGroup className="">
+                  <InputOTPSlot index={0} />
+                  <InputOTPSlot index={1} />
+                  <InputOTPSlot index={2} />
+                  <InputOTPSlot index={3} />
+                  <InputOTPSlot index={4} />
+                  <InputOTPSlot index={5} />
+                </InputOTPGroup>
+              </InputOTP>
+            </div>
             <div>
-              <Button className="w-full mt-7" type="submit">
-                <Link href="/dashboard"> Verifikasi</Link>
+              <Button
+                className="w-full mt-10"
+                type="submit"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                  "Verifikasi"
+                )}
               </Button>
             </div>
           </form>
         </Card>
-        {/* <div className="relative hidden h-full w-full max-w-md items-center justify-center lg:flex">
-        <Image
-          alt="Sign up illustration"
-          className="h-full w-full object-cover"
-          height={10000}
-          src="/Rectangle 5.png"
-          width={10000}
-        />
-      </div> */}
+        <AlertDialog open={open} onOpenChange={handleCloseAlert}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              {error ? (
+                <AlertDialogTitle>Error</AlertDialogTitle>
+              ) : (
+                <AlertDialogTitle>Pendaftaran Berhasil</AlertDialogTitle>
+              )}
+              <AlertDialogDescription>
+                {error || "Verfikasi email berhasil, silahkan login."}
+              </AlertDialogDescription>
+              <AlertDialogFooter>
+                {error ? (
+                  <Button variant="outline" onClick={handleCloseAlert}>
+                    Close
+                  </Button>
+                ) : (
+                  <Link href={"/auth/login"}>
+                    {" "}
+                    <AlertDialogAction>Continue</AlertDialogAction>
+                  </Link>
+                )}
+              </AlertDialogFooter>
+            </AlertDialogHeader>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </>
   );
 }
 
-export function InputOTPControlled() {
-  const [value, setValue] = React.useState("");
-
-  return (
-    <div className="space-y-2 flex flex-col justify-center items-center">
-      <InputOTP
-        maxLength={6}
-        value={value}
-        onChange={(value) => setValue(value)}
-      >
-        <InputOTPGroup className="">
-          <InputOTPSlot index={0} />
-          <InputOTPSlot index={1} />
-          <InputOTPSlot index={2} />
-          <InputOTPSlot index={3} />
-          <InputOTPSlot index={4} />
-          <InputOTPSlot index={5} />
-        </InputOTPGroup>
-      </InputOTP>
-      {/* <div className=" text-sm">
-        {value === "" ? (
-          <>Enter your one-time password.</>
-        ) : (
-          <>You entered: {value}</>
-        )}
-      </div> */}
-    </div>
-  );
-}
-
-export default page;
+export default Page;
