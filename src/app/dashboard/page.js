@@ -26,17 +26,23 @@ import copy from "copy-to-clipboard";
 import { ArrowRightCircle, Copy, MessageCircleIcon, Users } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 function Dashboard() {
+  const router = useRouter();
+  const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
   const { toast } = useToast();
 
-  const getToken = localStorage.getItem("token");
-
-  if (!getToken) {
-    window.location.href = "/login";
-  }
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+    } else {
+      router.push("/");
+    }
+  }, []);
 
   async function getData() {
     setLoading(true);
@@ -200,9 +206,10 @@ function Dashboard() {
 
         <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3 mt-4">
           {data.message ? (
-            data.message.map((item) => {
+            data.message.map((item, index) => {
               return (
                 <MsgCard
+                  key={index}
                   question={"Question #" + item.id}
                   date={item.created_at}
                   message={item.content}
@@ -240,9 +247,9 @@ function Dashboard() {
                 </TableHeader>
                 <TableBody>
                   {data.leaderboard ? (
-                    data.leaderboard.map((item) => {
+                    data.leaderboard.map((item, index) => {
                       return (
-                        <TableRow>
+                        <TableRow key={index}>
                           <TableCell>
                             <div className="font-medium">{item.name}</div>
                           </TableCell>

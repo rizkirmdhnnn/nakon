@@ -4,10 +4,19 @@ import { ArrowRightCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "./navbar";
+import { useState, useEffect } from "react";
 
-function hero() {
 
-  const user = localStorage.getItem("user");
+function Hero() {
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -23,7 +32,7 @@ function hero() {
           </p>
         </div>
         <Button asChild size="sm" className="mx-auto gap-2 mt-8">
-          {user ? (
+          {token ? (
             <Link href="/dashboard">
               Go to Dashboard
               <ArrowRightCircle className="h-4 w-4" />
@@ -42,4 +51,4 @@ function hero() {
   );
 }
 
-export default hero;
+export default Hero;
