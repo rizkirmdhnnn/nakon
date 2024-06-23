@@ -25,9 +25,57 @@ import { useToast } from "@/components/ui/use-toast";
 import copy from "copy-to-clipboard";
 import { ArrowRightCircle, Copy, MessageCircleIcon, Users } from "lucide-react";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 function Dashboard() {
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState(null);
   const { toast } = useToast();
+
+  const getToken = localStorage.getItem("token");
+
+  if (!getToken) {
+    window.location.href = "/login";
+  }
+
+  async function getData() {
+    setLoading(true);
+    console.log("submit");
+    try {
+      const response = await fetch(
+        "https://nakonapi.rizpedia.com/api/v1/dashboard",
+        {
+          method: "GET",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+            "Content-Type": "application/json",
+          },
+        },
+      );
+      const data = await response.json();
+      if (response.ok) {
+        setData(data.data);
+      } else {
+        console.log(data);
+      }
+    } catch (error) {}
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-primary" />
+      </div>
+    );
+  }
+
+  console.log(data);
+
   return (
     <>
       <Navbar />
@@ -49,7 +97,16 @@ function Dashboard() {
                 <Users className="h-4 w- q4 text-primary" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">+278.350</div>
+                {
+                  /* {data.total_visitors} */
+                  data.statistic ? (
+                    <div className="text-2xl font-bold">
+                      {data.statistic.total_visitor}
+                    </div>
+                  ) : (
+                    <div className="text-2xl font-bold">0</div>
+                  )
+                }
                 <p className="text-xs text-muted-foreground">
                   Since october 2023
                 </p>
@@ -66,7 +123,17 @@ function Dashboard() {
                 <MessageCircleIcon className="h-4 w-4 text-primary" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">270</div>
+                {
+                  /* {data.total_visitors} */
+                  data.statistic ? (
+                    <div className="text-2xl font-bold">
+                      {data.statistic.total_message}
+                    </div>
+                  ) : (
+                    <div className="text-2xl font-bold">0</div>
+                  )
+                }
+                {/* TODO: ini masih statik */}
                 <p className="text-xs text-muted-foreground">
                   10 messages added today
                 </p>
@@ -132,59 +199,20 @@ function Dashboard() {
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3 mt-4">
-          <MsgCard
-            question={"Pertanyaan #1"}
-            date={"12 oktober 2024"}
-            message={
-              "hallo ini merupakan contoh pesan yang nantinya akan dikirim. ini  whanya pesan dummy saja ya"
-            }
-            id={"1"}
-          />
-
-          <MsgCard
-            question={"Pertanyaan #2"}
-            date={"12 oktober 2024"}
-            message={
-              "hallo ini merupakan contoh pesan yang nantinya akan dikirim. ini  whanya pesan dummy saja ya"
-            }
-            id={"2"}
-          />
-
-          <MsgCard
-            question={"Pertanyaan #3"}
-            date={"12 oktober 2024"}
-            message={
-              "hallo ini merupakan contoh pesan yang nantinya akan dikirim. ini  whanya pesan dummy saja ya"
-            }
-            id={"3"}
-          />
-
-          <MsgCard
-            question={"Pertanyaan #4"}
-            date={"12 oktober 2024"}
-            message={
-              "hallo ini merupakan contoh pesan yang nantinya akan dikirim. ini  whanya pesan dummy saja ya"
-            }
-            id={"4"}
-          />
-
-          <MsgCard
-            question={"Pertanyaan #5"}
-            date={"12 oktober 2024"}
-            message={
-              "hallo ini merupakan contoh pesan yang nantinya akan dikirim. ini  whanya pesan dummy saja ya"
-            }
-            id={"5"}
-          />
-
-          <MsgCard
-            question={"Pertanyaan #6"}
-            date={"12 oktober 2024"}
-            message={
-              "hallo ini merupakan contoh pesan yang nantinya akan dikirim. ini  whanya pesan dummy saja ya"
-            }
-            id={"6"}
-          />
+          {data.message ? (
+            data.message.map((item) => {
+              return (
+                <MsgCard
+                  question={"Question #" + item.id}
+                  date={item.created_at}
+                  message={item.content}
+                  id={item.id}
+                />
+              );
+            })
+          ) : (
+            <div>Belum ada pertanyaan</div>
+          )}
         </div>
 
         {/* Leaderboard */}
@@ -207,34 +235,26 @@ function Dashboard() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>Username</TableHead>
-                    <TableHead className="text-right">Totals</TableHead>
+                    <TableHead className="text-right">Total messages</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Liam Johnson</div>
-                    </TableCell>
-                    <TableCell className="text-right">250.00</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Liam Johnson</div>
-                    </TableCell>
-                    <TableCell className="text-right">250.00</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Liam Johnson</div>
-                    </TableCell>
-                    <TableCell className="text-right">250.00</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Liam Johnson</div>
-                    </TableCell>
-                    <TableCell className="text-right">250.00</TableCell>
-                  </TableRow>
+                  {data.leaderboard ? (
+                    data.leaderboard.map((item) => {
+                      return (
+                        <TableRow>
+                          <TableCell>
+                            <div className="font-medium">{item.name}</div>
+                          </TableCell>
+                          <TableCell className="text-right">
+                            {item.messages_count}
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })
+                  ) : (
+                    <div>Belum ada pertanyaan</div>
+                  )}
                 </TableBody>
               </Table>
             </CardContent>

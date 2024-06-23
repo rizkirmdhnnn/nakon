@@ -12,8 +12,55 @@ export default function MsgCard({ question, date, message, id }) {
     setOpen(!open);
     console.log(open);
   };
+
+  {/* TODO: pop up setelah dihapus*/ }
+  const handleButtonDelete = async () => {
+    try {
+      const response = await fetch(
+        `https://nakonapi.rizpedia.com/api/v1/message/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+        },
+      );
+      const data = await response.json();
+      if (response.ok) {
+        console.log(data);
+      } else {
+        console.log(data);
+      }
+    } catch (error) { }
+
+  };
+
+  {/* TODO: pop up setelah dibaca*/ }
+  const handleButtonRead = async () => {
+    try {
+      const response = await fetch(
+        `https://nakonapi.rizpedia.com/api/v1/message/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+      if (response.ok) {
+        console.log(data);
+      } else {
+        console.log(data);
+      }
+    } catch (error) { }
+  }
+
+
   return (
-    <Card x-chunk="dashboard-01-chunk-1" className="bg-secondary border-none">
+    <Card x- chunk="dashboard-01-chunk-1" className="bg-secondary border-none" >
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-xl font-bold">
           {question}
@@ -47,14 +94,14 @@ export default function MsgCard({ question, date, message, id }) {
             {/* <AlertDialogCancel>Tandai Sudah Dibaca</AlertDialogCancel>
             <AlertDialogAction>Hapus</AlertDialogAction> */}
             <div className="flex justify-between w-full gap-3">
-              <Button className="w-1/2">Mark As Read</Button>
-              <Button variant="outlineDestructive" className="w-1/2">
+              <Button className="w-1/2" onClick={handleButtonRead}>Mark As Read</Button>
+              <Button variant="outlineDestructive" className="w-1/2" onClick={handleButtonDelete}>
                 Delete
               </Button>
             </div>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </Card>
+    </Card >
   );
 }
