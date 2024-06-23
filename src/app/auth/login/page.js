@@ -145,10 +145,10 @@ export default function Page() {
               {error ? (
                 <AlertDialogTitle>Error</AlertDialogTitle>
               ) : (
-                <AlertDialogTitle>Pendaftaran Berhasil</AlertDialogTitle>
+                <AlertDialogTitle>Register Success</AlertDialogTitle>
               )}
               <AlertDialogDescription>
-                {error || "Silahkan cek email anda untuk proses verifikasi"}
+                {error || "please check your email to verify your account"}
               </AlertDialogDescription>
               <AlertDialogFooter>
                 {error ? (

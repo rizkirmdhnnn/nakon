@@ -87,7 +87,7 @@ function RegisterPage() {
           <div>
             <div className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="password">Kata sandi</Label>
+                <Label htmlFor="password">Password</Label>
                 <Input
                   id="password"
                   name="password"
@@ -98,7 +98,7 @@ function RegisterPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password-confirm">Konfirmasi Kata Sandi</Label>
+                <Label htmlFor="password-confirm">Confirm Password</Label>
                 <Input
                   id="password-confirm"
                   name="password-confirm"
@@ -130,7 +130,7 @@ function RegisterPage() {
                 {error ? (
                   <AlertDialogTitle>Error</AlertDialogTitle>
                 ) : (
-                  <AlertDialogTitle>Reset Password Berhasil</AlertDialogTitle>
+                  <AlertDialogTitle>Succes reset password</AlertDialogTitle>
                 )}
                 <AlertDialogDescription>
                   {error || "Jangan lupa terus ya sembere"}

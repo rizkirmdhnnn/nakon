@@ -61,7 +61,7 @@ function RegisterPage() {
         setError(data.message);
       }
     } catch (error) {
-      setError("Terjadi kesalahan. Silakan coba lagi.");
+      setError("there was an error, please try again later");
     }
     setOpen(true);
     setIsSubmitting(false);
@@ -176,7 +176,7 @@ function RegisterPage() {
                   <AlertDialogTitle>Register Success</AlertDialogTitle>
                 )}
                 <AlertDialogDescription>
-                  {error || "Silahkan cek email anda untuk proses verifikasi"}
+                  {error || "Please check your email to verify your account"}
                 </AlertDialogDescription>
                 <AlertDialogFooter>
                   {error ? (

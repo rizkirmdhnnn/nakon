@@ -134,7 +134,7 @@ function Page() {
                 <AlertDialogTitle>Register Success</AlertDialogTitle>
               )}
               <AlertDialogDescription>
-                {error || "Verfikasi email berhasil, silahkan login."}
+                {error || "Verification success, please login to continue"}
               </AlertDialogDescription>
               <AlertDialogFooter>
                 {error ? (
