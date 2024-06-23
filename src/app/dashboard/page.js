@@ -1,5 +1,7 @@
 "use client";
-
+{
+  /* TODO: harusnya pas pesan udh dibaca, button mark as read ga bisa diteken*/
+}
 import CustomFooter from "@/components/group/footer";
 import MsgCard from "@/components/group/msgcard";
 import Navbar from "@/components/group/navbar";
@@ -38,6 +40,7 @@ function Dashboard() {
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     if (storedToken) {
+      getData();
       setToken(storedToken);
     } else {
       router.push("/");
@@ -68,10 +71,6 @@ function Dashboard() {
     setLoading(false);
   }
 
-  useEffect(() => {
-    getData();
-  }, []);
-
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -81,7 +80,6 @@ function Dashboard() {
   }
 
   console.log(data);
-
   return (
     <>
       <Navbar />
@@ -196,17 +194,21 @@ function Dashboard() {
               See the list of questions that have been asked
             </p>
           </div>
-          <Button asChild size="sm" className="ml-auto gap-1 mt-8">
-            <Link href="./dashboard/messages">
-              View All
-              <ArrowRightCircle className="h-4 w-4" />
-            </Link>
-          </Button>
+          {data.message.length != 0 ? (
+            <Button asChild size="sm" className="ml-auto gap-1 mt-8">
+              <Link href="./dashboard/messages">
+                View All
+                <ArrowRightCircle className="h-4 w-4" />
+              </Link>
+            </Button>
+          ) : (
+            <> </>
+          )}
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3 mt-4">
-          {data.message ? (
-            data.message.map((item, index) => {
+        {data.message.length != 0 ? (
+          <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3 mt-4">
+            {data.message.map((item, index) => {
               return (
                 <MsgCard
                   key={index}
@@ -214,13 +216,16 @@ function Dashboard() {
                   date={item.created_at}
                   message={item.content}
                   id={item.id}
+                  refreshData={getData}
                 />
               );
-            })
-          ) : (
-            <div>Belum ada pertanyaan</div>
-          )}
-        </div>
+            })}
+          </div>
+        ) : (
+          <div className="min-h-[100px] pt-10 pb-5 flex flex-col justify-center items-center">
+            Belum ada pertanyaan
+          </div>
+        )}
 
         {/* Leaderboard */}
         <div className="grid gap-4 md:gap-8 mt-[50px]">

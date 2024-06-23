@@ -1,20 +1,33 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Calendar, X } from "lucide-react";
-import Link from "next/link";
+import { Calendar, Loader2, X } from "lucide-react";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import React from "react";
+import { useToast } from "@/components/ui/use-toast"
+import { useRouter } from "next/navigation";
+import Dashboard from "@/app/dashboard/page";
 
-export default function MsgCard({ question, date, message, id }) {
+export default function MsgCard({ question, date, message, id, refreshData }) {
   const [open, setOpen] = React.useState(false);
+  const [isDeleting, setIsDeleting] = React.useState(false);
+  const [isReading, setIsReading] = React.useState(false);
+  const { toast } = useToast()
 
   const handleButtonClick = () => {
     setOpen(!open);
     console.log(open);
   };
 
-  {/* TODO: pop up setelah dihapus*/ }
+  const showToast = (title, description) => {
+    toast({
+      title: title,
+      description: description,
+    })
+  };
+
+
   const handleButtonDelete = async () => {
+    setIsDeleting(true);
     try {
       const response = await fetch(
         `https://nakonapi.rizpedia.com/api/v1/message/${id}`,
@@ -28,16 +41,20 @@ export default function MsgCard({ question, date, message, id }) {
       );
       const data = await response.json();
       if (response.ok) {
-        console.log(data);
+        setOpen(false);
+        showToast("Success", "Message deleted successfully");
+        refreshData();
       } else {
-        console.log(data);
+        setOpen(false);
+        showToast("Error", "Failed to delete message")
       }
     } catch (error) { }
 
+    setIsDeleting(false);
   };
 
-  {/* TODO: pop up setelah dibaca*/ }
   const handleButtonRead = async () => {
+    setIsReading(true);
     try {
       const response = await fetch(
         `https://nakonapi.rizpedia.com/api/v1/message/${id}`,
@@ -51,11 +68,22 @@ export default function MsgCard({ question, date, message, id }) {
       );
       const data = await response.json();
       if (response.ok) {
-        console.log(data);
+        setOpen(false);
+        showToast("Success", "Message marked as read")
+        refreshData()
       } else {
-        console.log(data);
+        setOpen(false);
+        console.log(data.message)
+        if (data.message == "Message already read") {
+          showToast("Failed", "Message already read")
+        }
+        showToast("Failed", "Failed to mark message as read")
+        refreshData()
       }
-    } catch (error) { }
+    } catch (error) {
+      showToast("Error", "500 Internal Server Error")
+    }
+    setIsReading(false);
   }
 
 
@@ -94,9 +122,21 @@ export default function MsgCard({ question, date, message, id }) {
             {/* <AlertDialogCancel>Tandai Sudah Dibaca</AlertDialogCancel>
             <AlertDialogAction>Hapus</AlertDialogAction> */}
             <div className="flex justify-between w-full gap-3">
-              <Button className="w-1/2" onClick={handleButtonRead}>Mark As Read</Button>
+              <Button className="w-1/2" onClick={handleButtonRead}>
+                {isReading ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                  "Mark As Read"
+                )}
+
+              </Button>
               <Button variant="outlineDestructive" className="w-1/2" onClick={handleButtonDelete}>
-                Delete
+                {isDeleting ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                  "Delete"
+                )}
+
               </Button>
             </div>
           </AlertDialogFooter>
