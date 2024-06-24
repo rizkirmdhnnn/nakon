@@ -8,12 +8,23 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState, useRef } from "react";
 import NotFound from "@/app/not-found";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Loader2 } from "lucide-react";
 
 export default function Question({ params }) {
   const [user, setUser] = useState({});
   const dataFetchedRef = useRef(false);
   const [errorFetch, setErrorFetch] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [submit, setSubmit] = useState(false);
+  const [chat, setChat] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
@@ -54,10 +65,11 @@ export default function Question({ params }) {
   }
 
   const sendQuestion = async (e) => {
+    setSubmit(true);
     e.preventDefault();
-    const chat = document.getElementById("chat").value;
     if (!chat) {
       alert("Pertanyaan tidak boleh kosong");
+      setSubmit(false);
       return;
     }
     try {
@@ -71,14 +83,17 @@ export default function Question({ params }) {
           user_id: user.id,
         }),
       });
-      const data = await res.json();
+      {
+        /*const data = await res.json();*/
+      }
       if (res.ok) {
-        alert("Pertanyaan berhasil dikirim");
+        setOpen(true);
       }
     } catch (error) {}
+    setChat("");
+    setSubmit(false);
   };
 
-  console.log(user);
   return (
     <>
       <Navbar />
@@ -101,15 +116,35 @@ export default function Question({ params }) {
               rows="10"
               className="block p-2 w-full text-sm rounded-lg  bg-secondary"
               placeholder="Tuliskan Pertanyaan Yang Ingin Kamu Sampaikan"
+              value={chat}
+              onChange={(e) => setChat(e.target.value)}
             ></textarea>
 
             <p className="text-sm text-gray-500 mt-2">
               Pertanyaanmu akan disampaikan secara anonim
             </p>
-            <Button className="mt-5 flex ">Kirim Pertanyaan</Button>
+
+            <Button className="mt-5 flex " type="submit" disabled={submit}>
+              {submit ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                "Register"
+              )}
+            </Button>
           </form>
         </div>
       </div>
+
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Success</DialogTitle>
+            <DialogDescription>
+              Message has been sent to {params.username}
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
       <CustomFooter />
     </>
   );
