@@ -1,7 +1,5 @@
 "use client";
-{
-  /* TODO: harusnya pas pesan udh dibaca, button mark as read ga bisa diteken*/
-}
+
 import CustomFooter from "@/components/group/footer";
 import MsgCard from "@/components/group/msgcard";
 import Navbar from "@/components/group/navbar";
@@ -32,16 +30,17 @@ import { useRouter } from "next/navigation";
 
 function Dashboard() {
   const router = useRouter();
-  const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(null);
   const { toast } = useToast();
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
+    const storedUser = localStorage.getItem("user");
     const storedToken = localStorage.getItem("token");
-    if (storedToken) {
+    if (storedToken && storedUser) {
+      setUser(JSON.parse(storedUser));
       getData();
-      setToken(storedToken);
     } else {
       router.push("/");
     }
@@ -49,7 +48,6 @@ function Dashboard() {
 
   async function getData() {
     setLoading(true);
-    console.log("submit");
     try {
       const response = await fetch(
         "https://nakonapi.rizpedia.com/api/v1/dashboard",
@@ -79,7 +77,6 @@ function Dashboard() {
     );
   }
 
-  console.log(data);
   return (
     <>
       <Navbar />
@@ -161,7 +158,9 @@ function Dashboard() {
                     </Label>
                     <Input
                       id="link"
-                      defaultValue="https://nakon.vercel.app/p/aansukawinda"
+                      defaultValue={
+                        window.location.origin + "/p/" + user.username
+                      }
                       readOnly
                     />
                   </div>
@@ -216,6 +215,7 @@ function Dashboard() {
                   date={item.created_at}
                   message={item.content}
                   id={item.id}
+                  read={item.read}
                   refreshData={getData}
                 />
               );
@@ -223,7 +223,7 @@ function Dashboard() {
           </div>
         ) : (
           <div className="min-h-[100px] pt-10 pb-5 flex flex-col justify-center items-center">
-            Belum ada pertanyaan
+            no messages available
           </div>
         )}
 
@@ -244,36 +244,41 @@ function Dashboard() {
             </CardHeader>
             <CardContent>
               <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Username</TableHead>
-                    <TableHead className="text-right">Total messages</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {data.leaderboard ? (
-                    data.leaderboard.map((item, index) => {
-                      return (
-                        <TableRow key={index}>
-                          <TableCell>
-                            <div className="font-medium">{item.name}</div>
-                          </TableCell>
-                          <TableCell className="text-right">
-                            {item.messages_count}
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })
-                  ) : (
-                    <div>Belum ada pertanyaan</div>
-                  )}
-                </TableBody>
+                {data.leaderboard.length != 0 ? (
+                  <>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Username</TableHead>
+                        <TableHead className="text-right">
+                          Total messages
+                        </TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {data.leaderboard.map((item, index) => {
+                        return (
+                          <TableRow key={index}>
+                            <TableCell>
+                              <div className="font-medium">{item.name}</div>
+                            </TableCell>
+                            <TableCell className="text-right">
+                              {item.messages_count}
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                    </TableBody>
+                  </>
+                ) : (
+                  <div className="min-h-[100px] pt-10 pb-5 flex flex-col justify-center items-center">
+                    no data available
+                  </div>
+                )}
               </Table>
             </CardContent>
           </Card>
         </div>
       </main>
-
       <CustomFooter />
     </>
   );

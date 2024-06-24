@@ -1,13 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar, Loader2, X } from "lucide-react";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+
 import React from "react";
 import { useToast } from "@/components/ui/use-toast"
-import { useRouter } from "next/navigation";
-import Dashboard from "@/app/dashboard/page";
 
-export default function MsgCard({ question, date, message, id, refreshData }) {
+export default function MsgCard({ question, date, message, id, read, refreshData }) {
   const [open, setOpen] = React.useState(false);
   const [isDeleting, setIsDeleting] = React.useState(false);
   const [isReading, setIsReading] = React.useState(false);
@@ -15,7 +21,6 @@ export default function MsgCard({ question, date, message, id, refreshData }) {
 
   const handleButtonClick = () => {
     setOpen(!open);
-    console.log(open);
   };
 
   const showToast = (title, description) => {
@@ -24,7 +29,6 @@ export default function MsgCard({ question, date, message, id, refreshData }) {
       description: description,
     })
   };
-
 
   const handleButtonDelete = async () => {
     setIsDeleting(true);
@@ -39,7 +43,7 @@ export default function MsgCard({ question, date, message, id, refreshData }) {
           },
         },
       );
-      const data = await response.json();
+
       if (response.ok) {
         setOpen(false);
         showToast("Success", "Message deleted successfully");
@@ -48,7 +52,10 @@ export default function MsgCard({ question, date, message, id, refreshData }) {
         setOpen(false);
         showToast("Error", "Failed to delete message")
       }
-    } catch (error) { }
+    } catch (error) {
+      setOpen(false);
+      showToast("Error", "500 Internal Server Error")
+    }
 
     setIsDeleting(false);
   };
@@ -66,17 +73,13 @@ export default function MsgCard({ question, date, message, id, refreshData }) {
           },
         }
       );
-      const data = await response.json();
+
       if (response.ok) {
         setOpen(false);
         showToast("Success", "Message marked as read")
         refreshData()
       } else {
         setOpen(false);
-        console.log(data.message)
-        if (data.message == "Message already read") {
-          showToast("Failed", "Message already read")
-        }
         showToast("Failed", "Failed to mark message as read")
         refreshData()
       }
@@ -84,6 +87,7 @@ export default function MsgCard({ question, date, message, id, refreshData }) {
       showToast("Error", "500 Internal Server Error")
     }
     setIsReading(false);
+
   }
 
 
@@ -104,7 +108,6 @@ export default function MsgCard({ question, date, message, id, refreshData }) {
       <CardFooter className="float-end">
         <Button onClick={handleButtonClick}>
           More
-          {/* <Link href={`#${id}`}>Selengkapnya</Link> */}
         </Button>
       </CardFooter>
       <AlertDialog open={open} onOpenChange={setOpen}>
@@ -119,12 +122,12 @@ export default function MsgCard({ question, date, message, id, refreshData }) {
             <AlertDialogDescription>{message}</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            {/* <AlertDialogCancel>Tandai Sudah Dibaca</AlertDialogCancel>
-            <AlertDialogAction>Hapus</AlertDialogAction> */}
             <div className="flex justify-between w-full gap-3">
-              <Button className="w-1/2" onClick={handleButtonRead}>
+              <Button className="w-1/2" onClick={handleButtonRead} disabled={read || isReading}>
                 {isReading ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : read ? (
+                  "Already Read"
                 ) : (
                   "Mark As Read"
                 )}
@@ -136,7 +139,6 @@ export default function MsgCard({ question, date, message, id, refreshData }) {
                 ) : (
                   "Delete"
                 )}
-
               </Button>
             </div>
           </AlertDialogFooter>
