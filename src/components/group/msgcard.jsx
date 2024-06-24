@@ -92,7 +92,7 @@ export default function MsgCard({ question, date, message, id, read, refreshData
 
 
   return (
-    <Card x- chunk="dashboard-01-chunk-1" className="bg-secondary border-none" >
+    <Card className="bg-secondary border-none" >
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-xl font-bold">
           {question}

@@ -1,4 +1,7 @@
 "use client";
+{
+  /* TODO: pop up masih jelek*/
+}
 import CustomFooter from "@/components/group/footer";
 import Navbar from "@/components/group/navbar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";

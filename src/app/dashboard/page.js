@@ -211,7 +211,7 @@ function Dashboard() {
               return (
                 <MsgCard
                   key={index}
-                  question={"Question #" + item.id}
+                  question={`Question #${index + 1}`}
                   date={item.created_at}
                   message={item.content}
                   id={item.id}
