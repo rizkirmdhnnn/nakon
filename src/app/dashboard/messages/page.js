@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select";
 import { useEffect, useState, useRef } from "react";
 
-function page() {
+function AllMessagePage() {
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState([]);
   const [filter, setFilter] = useState("all");
@@ -112,4 +112,4 @@ function page() {
   );
 }
 
-export default page;
+export default AllMessagePage;
