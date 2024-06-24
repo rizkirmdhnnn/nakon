@@ -65,6 +65,18 @@ function Dashboard() {
         /* TODO: ini belum ada pengecekan akun udh aktif apa belum */
       }
       if (response.ok) {
+        {
+          /* saat akun belum aktif*/
+        }
+        if (response.status == 403 && data.message == "Account not active") {
+          return (
+            <div className="flex justify-center items-center h-screen">
+              <div className="text-xl font-bold">
+                Aktifin dulu lah itu akunmu bujang
+              </div>
+            </div>
+          );
+        }
         setData(data.data);
       } else {
         if (data == null) {
@@ -81,7 +93,6 @@ function Dashboard() {
     } catch (error) {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
-
       router.push("/");
     }
     setLoading(false);
