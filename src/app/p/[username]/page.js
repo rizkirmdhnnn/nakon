@@ -1,28 +1,20 @@
 "use client";
-{
-  /* TODO: pop up masih jelek*/
-}
+
 import CustomFooter from "@/components/group/footer";
 import Navbar from "@/components/group/navbar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState, useRef } from "react";
 import NotFound from "@/app/not-found";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { Loader2 } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function Question({ params }) {
-  const [user, setUser] = useState({});
+  const { toast } = useToast();
   const dataFetchedRef = useRef(false);
+  const [user, setUser] = useState({});
   const [errorFetch, setErrorFetch] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [open, setOpen] = useState(false);
   const [submit, setSubmit] = useState(false);
   const [chat, setChat] = useState("");
 
@@ -64,11 +56,18 @@ export default function Question({ params }) {
     return <NotFound />;
   }
 
+  const showToast = (title, description) => {
+    toast({
+      title: title,
+      description: description,
+    });
+  };
+
   const sendQuestion = async (e) => {
     setSubmit(true);
     e.preventDefault();
     if (!chat) {
-      alert("Pertanyaan tidak boleh kosong");
+      showToast("Error", "Please fill the form");
       setSubmit(false);
       return;
     }
@@ -87,7 +86,7 @@ export default function Question({ params }) {
         /*const data = await res.json();*/
       }
       if (res.ok) {
-        setOpen(true);
+        showToast("Success", "Your message has been sent");
       }
     } catch (error) {}
     setChat("");
@@ -97,7 +96,7 @@ export default function Question({ params }) {
   return (
     <>
       <Navbar />
-      <div className="flex flex-row justify-between px-[50px] pb-[50px] md:px-[170px] md:pb-[127px] py-60">
+      <div className="flex flex-row justify-between px-[50px] pb-[50px] md:px-[170px] md:pb-[127px] md:py-60 py-40">
         <div className="bg-transparent w-full rounded-lg md:rounded-l-lg  md:px-[97px] md:pb-[73px] flex flex-col justify-between">
           <div className="flex justify-center">
             <Avatar className="w-[100px] h-[100px] flex">
@@ -106,46 +105,33 @@ export default function Question({ params }) {
             </Avatar>
           </div>
 
-          <h3 className="py-[25px] font-bold text-2xl sm:text-4xl text-center">
-            Tanyakan kepada {params.username}
+          <h3 className="py-[25px] font-bold text-2xl sm:text-4xl text-center md:mb-10">
+            Ask to {params.username}
           </h3>
-          <p className="font-bold mb-2">Pertanyaan</p>
           <form onSubmit={sendQuestion}>
             <textarea
               id="chat"
               rows="10"
-              className="block p-2 w-full text-sm rounded-lg  bg-secondary"
-              placeholder="Tuliskan Pertanyaan Yang Ingin Kamu Sampaikan"
+              className="block p-2 w-full text-sm rounded-lg  bg-secondary resize-none"
+              placeholder="Write down the questions you want to ask"
               value={chat}
               onChange={(e) => setChat(e.target.value)}
             ></textarea>
 
             <p className="text-sm text-gray-500 mt-2">
-              Pertanyaanmu akan disampaikan secara anonim
+              Your question will be submitted anonymously
             </p>
 
             <Button className="mt-5 flex " type="submit" disabled={submit}>
               {submit ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
               ) : (
-                "Register"
+                "Send Message"
               )}
             </Button>
           </form>
         </div>
       </div>
-
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Success</DialogTitle>
-            <DialogDescription>
-              Message has been sent to {params.username}
-            </DialogDescription>
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
-      <CustomFooter />
     </>
   );
 }
