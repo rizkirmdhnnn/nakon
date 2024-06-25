@@ -17,10 +17,9 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 
-function profile() {
+function Profile() {
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
   const { toast } = useToast();
@@ -257,4 +256,4 @@ function profile() {
   );
 }
 
-export default profile;
+export default Profile;
