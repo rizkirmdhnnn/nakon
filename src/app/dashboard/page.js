@@ -56,16 +56,45 @@ function Dashboard() {
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
             "Content-Type": "application/json",
+            Accept: "application/json",
           },
         },
       );
       const data = await response.json();
+      {
+        /* TODO: ini belum ada pengecekan akun udh aktif apa belum */
+      }
       if (response.ok) {
+        {
+          /* saat akun belum aktif*/
+        }
+        if (response.status == 403 && data.message == "Account not active") {
+          return (
+            <div className="flex justify-center items-center h-screen">
+              <div className="text-xl font-bold">
+                Aktifin dulu lah itu akunmu bujang
+              </div>
+            </div>
+          );
+        }
         setData(data.data);
       } else {
-        console.log(data);
+        if (data == null) {
+          router.push("/");
+        }
+
+        console.log(response.status);
+        if (response.status == 401) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          router.push("/");
+        }
       }
-    } catch (error) {}
+    } catch (error) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      router.push("/");
+    }
     setLoading(false);
   }
 
@@ -73,6 +102,14 @@ function Dashboard() {
     return (
       <div className="flex justify-center items-center h-screen">
         <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-primary" />
+      </div>
+    );
+  }
+
+  if (!data) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-xl font-bold">No data available</div>
       </div>
     );
   }
@@ -98,16 +135,9 @@ function Dashboard() {
                 <Users className="h-4 w- q4 text-primary" />
               </CardHeader>
               <CardContent>
-                {
-                  /* {data.total_visitors} */
-                  data.statistic ? (
-                    <div className="text-2xl font-bold">
-                      {data.statistic.total_visitor}
-                    </div>
-                  ) : (
-                    <div className="text-2xl font-bold">0</div>
-                  )
-                }
+                <div className="text-2xl font-bold">
+                  {data.statistic ? data.statistic.total_visitor : "0"}
+                </div>{" "}
                 <p className="text-xs text-muted-foreground">
                   Since october 2023
                 </p>
