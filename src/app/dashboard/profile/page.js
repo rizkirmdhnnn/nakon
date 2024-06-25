@@ -1,12 +1,74 @@
+"use client";
 import Footer from "@/components/group/footer";
 import Navbar from "@/components/group/navbar";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { redirect } from "next/dist/server/api-utils";
 import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
+import { Loader2 } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 function profile() {
+  const router = useRouter();
+  const [isDeleting, setIsDeleting] = useState(false);
+  const { toast } = useToast();
+  const [open, setOpen] = useState(false);
+
+  const showToast = (title, desc) => {
+    toast({
+      title: title,
+      description: desc,
+    });
+  };
+
+  const handleOpenDialog = () => {
+    setOpen(true);
+  };
+
+  const handleDeleteAccount = async () => {
+    setIsDeleting(true);
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        router.push("/");
+      }
+      const response = await fetch("https://nakonapi.rizpedia.com/api/v1/me", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        showToast("Success", "Account deleted successfully");
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+        router.push("/");
+      } else {
+        showToast("Error", data.message);
+      }
+    } catch (error) {
+      console.error("Error deleting account:", error);
+      showToast("Error", error.message);
+    }
+    setIsDeleting(false);
+  };
+
   return (
     <>
       <Navbar />
@@ -120,24 +182,24 @@ function profile() {
                     <div className="mb-4 mt- md:flex gap-5">
                       <div className="mb-4 md:mr-2 md:mb-0">
                         <div className="space-y-2">
-                          <Label htmlFor="lastName">Password</Label>
+                          <Label htmlFor="">Password</Label>
                           <Input
-                            autoComplete="lastName"
-                            id="lastName"
+                            autoComplete=""
+                            id=""
                             required
-                            type="lastName"
+                            type=""
                             className=""
                           />
                         </div>
                       </div>
                       <div className="mb-4 md:mr-2 md:mb-0">
                         <div className="space-y-2">
-                          <Label htmlFor="lastName">New Password</Label>
+                          <Label htmlFor="">New Password</Label>
                           <Input
-                            autoComplete="lastName"
-                            id="lastName"
+                            autoComplete=""
+                            id=""
                             required
-                            type="lastName"
+                            type=""
                             className=""
                           />
                         </div>
@@ -156,8 +218,40 @@ function profile() {
               </div>
             </div>
           </div>
+          {/* delete account */}
+          <div className="mt-10">
+            <h1 className="text-xl font-bold ">Delete Account</h1>
+            <p className="text-sm my-5 ">
+              If you delete your account, all your data will be permanently
+              deleted. Please be certain.
+            </p>
+            <Button onClick={handleOpenDialog}>Delete Account</Button>
+          </div>
         </section>
       </div>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Are you absolutely sure?</DialogTitle>
+            <DialogDescription>
+              This action cannot be undone. This will permanently delete your
+              account and remove your data from our servers.
+            </DialogDescription>
+          </DialogHeader>
+          <Button
+            onClick={handleDeleteAccount}
+            disabled={isDeleting}
+            className="outline-red-600 outline-none bg-transparent hover:bg-red-600 text-white"
+          >
+            {isDeleting ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              "Delete Account"
+            )}
+          </Button>
+        </DialogContent>
+      </Dialog>
+
       <Footer />
     </>
   );
