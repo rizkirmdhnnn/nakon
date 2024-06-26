@@ -25,13 +25,17 @@ import {
   AlertDialogHeader,
 } from "@/components/ui/alert-dialog";
 import Link from "next/link";
+import { useToast } from "@/components/ui/use-toast";
 
 function Page() {
+  const { toast } = useToast();
   const [user, setUser] = useState(null);
   const [value, setValue] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
   const [open, setOpen] = useState(false);
+  const [isResend, setIsResend] = useState(false);
+  const [countdown, setCountdown] = useState(0);
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -42,6 +46,54 @@ function Page() {
     }
   }, []);
 
+  useEffect(() => {
+    let timer;
+    if (countdown > 0) {
+      timer = setInterval(() => {
+        setCountdown((prev) => prev - 1);
+      }, 1000);
+    }
+    return () => clearInterval(timer);
+  }, [countdown]);
+
+  const showToast = (title, desc) => {
+    toast({
+      title: title,
+      description: desc,
+    });
+  };
+
+  const handleResend = async () => {
+    if (countdown > 0) return; // Prevent resend if countdown is active
+    setIsResend(true);
+    try {
+      const response = await fetch(
+        "https://nakonapi.rizpedia.com/api/v1/auth/refresh-otp",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: user.email.toString(),
+          }),
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+      if (response.ok) {
+        showToast("Resend", "Resend code success");
+        setCountdown(60); // Start 60-second countdown
+      } else {
+        showToast("Resend", data.message);
+      }
+    } catch (error) {
+      setError(error.message);
+      showToast("Resend", error.message);
+    }
+    setIsResend(false);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -50,6 +102,7 @@ function Page() {
       otp: value.toString(),
       id: user.id.toString(),
     });
+
     try {
       const response = await fetch(
         "https://nakonapi.rizpedia.com/api/v1/auth/verify-user",
@@ -59,7 +112,7 @@ function Page() {
             "Content-Type": "application/json",
           },
           body: dataBody,
-        },
+        }
       );
       const data = await response.json();
       console.log(data);
@@ -79,6 +132,17 @@ function Page() {
   const handleCloseAlert = () => {
     setOpen(false);
   };
+
+  // if (isResend) {
+  //   return (
+  //     <>
+  //       <Navbar />
+  //       <div className="flex justify-center items-center h-screen">
+  //         <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-primary" />
+  //       </div>
+  //     </>
+  //   );
+  // }
 
   return (
     <>
@@ -110,16 +174,37 @@ function Page() {
                 </InputOTPGroup>
               </InputOTP>
             </div>
+            <div className="flex justify-center items-center mt-5">
+              <p className="text-sm flex flex-row gap-1 items-center">
+                Didn't receive the code?{" "}
+                <span
+                  className={`text-primary ${
+                    countdown > 0
+                      ? "opacity-50 cursor-default"
+                      : "cursor-pointer"
+                  }`}
+                  onClick={countdown > 0 ? undefined : handleResend}
+                >
+                  {isResend ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : countdown > 0 ? (
+                    `Resend (${countdown}s)`
+                  ) : (
+                    "Resend"
+                  )}
+                </span>
+              </p>
+            </div>
             <div>
               <Button
-                className="w-full mt-10"
+                className="w-full mt-5"
                 type="submit"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : (
-                  "Verifikasi"
+                  "Verify"
                 )}
               </Button>
             </div>

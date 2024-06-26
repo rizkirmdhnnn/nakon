@@ -17,11 +17,14 @@ import { useState, useEffect } from "react";
 
 function Navbar() {
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
     const dataUser = localStorage.getItem("user");
-    if (dataUser) {
+    const dataToken = localStorage.getItem("token");
+    if (dataUser && dataToken) {
       setUser(JSON.parse(dataUser));
+      setToken(dataToken);
     }
   }, []);
 
