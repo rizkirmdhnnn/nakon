@@ -72,7 +72,7 @@ function Dashboard() {
           return (
             <div className="flex justify-center items-center h-screen">
               <div className="text-xl font-bold">
-                Aktifin dulu lah itu akunmu bujang
+               Please activate your account first
               </div>
             </div>
           );
