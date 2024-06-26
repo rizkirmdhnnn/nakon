@@ -176,7 +176,7 @@ function Page() {
             </div>
             <div className="flex justify-center items-center mt-5">
               <p className="text-sm flex flex-row gap-1 items-center">
-                Didn't receive the code?{" "}
+                Didnt receive the code?{" "}
                 <span
                   className={`text-primary ${
                     countdown > 0
