@@ -60,7 +60,7 @@ export default function ResetPassword() {
     setIsResend(true);
     try {
       const response = await fetch(
-        "https://nakonapi.rizpedia.com/api/v1/auth/refresh-otp",
+        "https://nakonapi.rizpedia.com/api/v1/auth/request-password-reset",
         {
           method: "POST",
           headers: {
@@ -69,17 +69,17 @@ export default function ResetPassword() {
           body: JSON.stringify({
             email: formData.email,
           }),
-        }
+        },
       );
       const data = await response.json();
       if (response.ok) {
-        showToast("Resend", "Resend code success");
+        showToast("Success", "Resend code success");
         setCountdown(60);
       } else {
-        showToast("Resend", data.message);
+        showToast("Error", data.message);
       }
     } catch (error) {
-      showToast("Resend", error.message);
+      showToast("Error", data.message);
     }
     setIsResend(false);
   };
@@ -87,7 +87,6 @@ export default function ResetPassword() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-
     try {
       const response = await fetch(
         "https://nakonapi.rizpedia.com/api/v1/auth/request-password-reset",
@@ -99,13 +98,13 @@ export default function ResetPassword() {
           body: JSON.stringify({
             email: formData.email,
           }),
-        }
+        },
       );
       const data = await response.json();
       if (response.ok) {
         setOpen(true);
       } else {
-        showToast("Request Reset", data.message);
+        showToast("Error", data.message);
       }
     } catch (error) {
       showToast("Request Reset", error.message);
@@ -127,18 +126,19 @@ export default function ResetPassword() {
             email: formData.email,
             otp: value,
           }),
-        }
+        },
       );
       const data = await response.json();
       if (response.ok) {
-        showToast("Verify OTP", "OTP verified successfully");
+        localStorage.setItem("token-reset", data.data.token);
+        showToast("Success", "OTP verified successfully");
         setOpen(false);
         router.push(`/auth/reset-password/change`);
       } else {
-        showToast("Verify OTP", data.message);
+        showToast("Error", data.message);
       }
     } catch (error) {
-      showToast("Verify OTP", error.message);
+      showToast("Error", data.message);
     }
     setIsSubmitting(false);
   };
@@ -214,7 +214,7 @@ export default function ResetPassword() {
                 </InputOTP>
                 <div className="flex justify-center items-center pt-5">
                   <p className="text-sm flex flex-row gap-1 items-center">
-                  Missing your verification code?{" "}
+                    Missing your verification code?{" "}
                     <span
                       className={`text-primary ${
                         countdown > 0
