@@ -10,11 +10,37 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-function page() {
+import { useEffect, useState } from "react";
+
+async function getLeaderboard() {
+  const response = await fetch(
+    "https://nakonapi.rizpedia.com/api/v1/leaderboard"
+  );
+  const data = await response.json();
+  return data;
+}
+
+function Page() {
+  const [leaderboardData, setLeaderboardData] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const data = await getLeaderboard();
+        setLeaderboardData(data.data || []);
+      }
+        catch (error) {
+        console.error("Error fetching leaderboard data:", error);
+        setLeaderboardData([]);
+      }
+    }
+    fetchData();
+  }, []);
+
   return (
     <>
       <Navbar />
-      <main className="p-5 md:px-[100px] xl:px-[250px]  pt-[100px] min-h-screen">
+      <main className="p-5 md:px-[100px] xl:px-[250px] pt-[100px] min-h-screen">
         <div className="flex justify-between items-center">
           <div>
             <h1 className="text-2xl font-bold">Leaderboard</h1>
@@ -27,42 +53,27 @@ function page() {
           <Card className="col-span-4" x-chunk="dashboard-01-chunk-4">
             <CardHeader className="flex flex-row items-center"></CardHeader>
             <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Username</TableHead>
-                    <TableHead className="text-right">Total</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Liam Johnson</div>
-                    </TableCell>
-                    <TableCell className="text-right">250.00</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Liam Johnson</div>
-                    </TableCell>
-                    <TableCell className="text-right">250.00</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Liam Johnson</div>
-                    </TableCell>
-                    <TableCell className="text-right">250.00</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <div className="font-medium">Liam Johnson</div>
-                    </TableCell>
-                    <TableCell className="text-right">250.00</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Name</TableHead>
+                      <TableHead className="text-right">Messages Count</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {leaderboardData.map((item) => (
+                      <TableRow key={item.id}>
+                        <TableCell>
+                          <div className="font-medium">{item.name}</div>
+                        </TableCell>
+                        <TableCell className="text-right">{item.messages_count}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              
             </CardContent>
-          </Card>{" "}
+          </Card>
         </div>
       </main>
       <CustomFooter />
@@ -70,4 +81,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;
