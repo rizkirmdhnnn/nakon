@@ -7,148 +7,250 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Check } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
-import { useState } from "react";
+import { Loader2 } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function ResetPassword() {
+  const router = useRouter();
   const [value, setValue] = useState("");
-  const [open, setOpen] = React.useState(false);
-  const [openstatus, setOpenStatus] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [countdown, setCountdown] = useState(0);
+  const [isResend, setIsResend] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
+  const [formData, setFormData] = useState({
+    email: "",
+  });
 
-  const handleButtonClick = () => {
-    setOpen(!open);
+  const showToast = (title, desc) => {
+    toast({
+      title: title,
+      description: desc,
+    });
   };
 
-  const handleButtonClickStatus = () => {
-    setOpen(!open);
-    setOpenStatus(!openstatus);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  useEffect(() => {
+    let timer;
+    if (countdown > 0) {
+      timer = setInterval(() => {
+        setCountdown((prev) => prev - 1);
+      }, 1000);
+    }
+    return () => clearInterval(timer);
+  }, [countdown]);
+
+  const handleResend = async () => {
+    if (countdown > 0) return;
+    setIsResend(true);
+    try {
+      const response = await fetch(
+        "https://nakonapi.rizpedia.com/api/v1/auth/refresh-otp",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: formData.email,
+          }),
+        }
+      );
+      const data = await response.json();
+      if (response.ok) {
+        showToast("Resend", "Resend code success");
+        setCountdown(60);
+      } else {
+        showToast("Resend", data.message);
+      }
+    } catch (error) {
+      showToast("Resend", error.message);
+    }
+    setIsResend(false);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch(
+        "https://nakonapi.rizpedia.com/api/v1/auth/request-password-reset",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: formData.email,
+          }),
+        }
+      );
+      const data = await response.json();
+      if (response.ok) {
+        setOpen(true);
+      } else {
+        showToast("Request Reset", data.message);
+      }
+    } catch (error) {
+      showToast("Request Reset", error.message);
+    }
+    setIsSubmitting(false);
+  };
+
+  const handleVerifyOTP = async () => {
+    setIsSubmitting(true);
+    try {
+      const response = await fetch(
+        "https://nakonapi.rizpedia.com/api/v1/auth/verify-otp",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: formData.email,
+            otp: value,
+          }),
+        }
+      );
+      const data = await response.json();
+      if (response.ok) {
+        showToast("Verify OTP", "OTP verified successfully");
+        setOpen(false);
+        router.push(`/auth/reset-password/change`);
+      } else {
+        showToast("Verify OTP", data.message);
+      }
+    } catch (error) {
+      showToast("Verify OTP", error.message);
+    }
+    setIsSubmitting(false);
   };
 
   return (
     <>
       <Navbar />
       <div className="flex min-h-screen w-full items-center justify-center px-6 py-3 md:px-[100px] xl:px-[250px]">
-        <Card>
-          <div className="grid w-full md:min-h-[600px]  xl:grid-cols-2 bg-secondary ">
-            <div className="hidden bg-secondary rounded-sm xl:block">
-              <Image
-                alt="Hero Illustration"
-                className="h-full w-full p-10 object-cover rounded-l-sm shadow-xl xl:"
-                height={600}
-                src="/p.png"
-                style={{
-                  aspectRatio: "800/600",
-                  objectFit: "cover",
-                }}
-                width={800}
-              />
+        <Card className="w-full max-w-md space-y-8 rounded-lg bg-secondary p-8 shadow-lg">
+          <div className="flex items-center justify-center lg:p-1">
+            <div className=" w-full max-w-md space-y-6">
+              <div className="space-y-2 ">
+                <h1 className="text-3xl font-bold">Forgot Password</h1>
+                <p className="text-gray-500 dark:text-gray-400">
+                  Enter your email to reset password
+                </p>
+              </div>
+              <form className="space-y-4" onSubmit={handleSubmit}>
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    name="email"
+                    placeholder="m@example.com"
+                    required
+                    type="email"
+                    onChange={handleChange}
+                    value={formData.email}
+                  />
+                </div>
+                <Button
+                  className="w-full"
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    "Request Reset"
+                  )}
+                </Button>
+              </form>
             </div>
-            <div className="flex items-center justify-center p-6 lg:p-10">
-              <div className=" w-full max-w-md space-y-6">
-                <div className="space-y-2 ">
-                  <h1 className="text-3xl font-bold">Forgot Password</h1>
-                  <p className="text-gray-500 dark:text-gray-400">
-                   insert your email to reset password
+          </div>
+        </Card>
+      </div>
+      <AlertDialog open={open} onOpenChange={setOpen}>
+        <AlertDialogContent>
+          <div className="space-y-8">
+            <div>
+              <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-card-foreground dark:text-card-foreground">
+                Verify Email
+              </h2>
+              <p className="mt-2 text-center text-sm">
+                Please enter the verification code sent to your email
+              </p>
+            </div>
+            <div className="space-y-6">
+              <div className="space-y-2 flex flex-col justify-center items-center">
+                <InputOTP
+                  maxLength={6}
+                  value={value}
+                  onChange={(value) => setValue(value)}
+                >
+                  <InputOTPGroup>
+                    <InputOTPSlot index={0} />
+                    <InputOTPSlot index={1} />
+                    <InputOTPSlot index={2} />
+                    <InputOTPSlot index={3} />
+                    <InputOTPSlot index={4} />
+                    <InputOTPSlot index={5} />
+                  </InputOTPGroup>
+                </InputOTP>
+                <div className="flex justify-center items-center pt-5">
+                  <p className="text-sm flex flex-row gap-1 items-center">
+                  Missing your verification code?{" "}
+                    <span
+                      className={`text-primary ${
+                        countdown > 0
+                          ? "opacity-50 cursor-not-allowed"
+                          : "cursor-pointer"
+                      }`}
+                      onClick={countdown > 0 ? undefined : handleResend}
+                    >
+                      {isResend ? (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      ) : countdown > 0 ? (
+                        `Resend (${countdown}s)`
+                      ) : (
+                        "Resend"
+                      )}
+                    </span>
                   </p>
                 </div>
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input
-                      id="email"
-                      placeholder="m@example.com"
-                      required
-                      type="email"
-                    />
-                  </div>
-                  <Button
-                    className="w-full"
-                    type="search"
-                    onClick={handleButtonClick}
-                  >
-                    Next
-                  </Button>
-                </div>
+              </div>
+              <div className="flex justify-center">
+                <Button
+                  className="w-1/2 mb-6"
+                  onClick={handleVerifyOTP}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    "Verify"
+                  )}
+                </Button>
               </div>
             </div>
           </div>
-          <AlertDialog open={open} onOpenChange={setOpen}>
-            <AlertDialogContent>
-              <div className="w-full max-w-md space-y-8 p-8 shadow-lg ">
-                <div>
-                  <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-card-foreground dark:text-card-foreground">
-                    Verify Email
-                  </h2>
-                  <p className="mt-2 text-center text-sm text-card-foreground dark:text-card-foreground">
-                    please enter the verification code sent to your email
-                  </p>
-                </div>
-                <div action="#" className="space-y-6 " method="POST">
-                  <div className="space-y-2 flex flex-col justify-center items-center">
-                    <InputOTP
-                      maxLength={6}
-                      value={value}
-                      onChange={(value) => setValue(value)}
-                    >
-                      <InputOTPGroup className="">
-                        <InputOTPSlot index={0} />
-                        <InputOTPSlot index={1} />
-                        <InputOTPSlot index={2} />
-                        <InputOTPSlot index={3} />
-                        <InputOTPSlot index={4} />
-                        <InputOTPSlot index={5} />
-                      </InputOTPGroup>
-                    </InputOTP>
-                  </div>
-                  <div className="flex justify-center">
-                    <Button
-                      className="w-1/2 mt-7"
-                      onClick={handleButtonClickStatus}
-                    >
-                      Verify
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </AlertDialogContent>
-          </AlertDialog>
-
-          <AlertDialog open={openstatus} onOpenChange={setOpenStatus}>
-            <AlertDialogContent>
-              <div className="w-full max-w-md space-y-8 p-8">
-                <div>
-                  <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-card-foreground dark:text-card-foreground">
-                    success
-                  </h2>
-                  <p className="mt-2 text-center text-sm text-card-foreground dark:text-card-foreground">
-                    kode that you entered is correct
-                  </p>
-                  <div action="#" className="space-y-6 mt-10" method="POST">
-                    <Check size={48} className="w-full" />
-                    <div className="flex justify-center">
-                      <Button className="w-1/2 mt-7">
-                        <Link href={"./reset-password/change"}>
-                          Next
-                        </Link>
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </AlertDialogContent>
-          </AlertDialog>
-        </Card>
-      </div>
-
+        </AlertDialogContent>
+      </AlertDialog>
       <CustomFooter />
     </>
   );
