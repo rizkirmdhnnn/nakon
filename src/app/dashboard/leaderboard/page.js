@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 
 async function getLeaderboard() {
   const response = await fetch(
-    "https://nakonapi.rizpedia.com/api/v1/leaderboard"
+    "https://nakonapi.rizpedia.com/api/v1/leaderboard",
   );
   const data = await response.json();
   return data;
@@ -22,20 +22,30 @@ async function getLeaderboard() {
 
 function Page() {
   const [leaderboardData, setLeaderboardData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
+      setIsLoading(true);
       try {
         const data = await getLeaderboard();
         setLeaderboardData(data.data || []);
-      }
-        catch (error) {
+      } catch (error) {
         console.error("Error fetching leaderboard data:", error);
         setLeaderboardData([]);
       }
+      setIsLoading(false);
     }
     fetchData();
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-primary" />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -51,27 +61,27 @@ function Page() {
         </div>
         <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3 mt-4">
           <Card className="col-span-4" x-chunk="dashboard-01-chunk-4">
-            <CardHeader className="flex flex-row items-center"></CardHeader>
             <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Name</TableHead>
-                      <TableHead className="text-right">Messages Count</TableHead>
+              <Table className="mt-7">
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Name</TableHead>
+                    <TableHead className="text-right">Messages Count</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {leaderboardData.map((item) => (
+                    <TableRow key={item.id}>
+                      <TableCell>
+                        <div className="font-medium">{item.name}</div>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        {item.messages_count}
+                      </TableCell>
                     </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {leaderboardData.map((item) => (
-                      <TableRow key={item.id}>
-                        <TableCell>
-                          <div className="font-medium">{item.name}</div>
-                        </TableCell>
-                        <TableCell className="text-right">{item.messages_count}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              
+                  ))}
+                </TableBody>
+              </Table>
             </CardContent>
           </Card>
         </div>
@@ -82,3 +92,4 @@ function Page() {
 }
 
 export default Page;
+
