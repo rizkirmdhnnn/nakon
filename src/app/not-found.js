@@ -1,7 +1,10 @@
+"use client";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export default function NotFound() {
+  const router = useRouter();
   return (
     <>
       <section>
@@ -22,7 +25,9 @@ export default function NotFound() {
             </p>
             <div className="flex items-center mt-6 ">
               <Button
-                href="/"
+                onClick={() =>
+                router.push("/")
+                }
                 className=" w-auto px-5 py-2 text-sm  bg-primary rounded-lg shrink-0 "
               >
                 Home
