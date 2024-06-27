@@ -27,6 +27,8 @@ import { ArrowRightCircle, Copy, MessageCircleIcon, Users } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { format, parseISO, isToday } from "date-fns";
+import { id } from "date-fns/locale";
 
 function Dashboard() {
   const router = useRouter();
@@ -62,11 +64,9 @@ function Dashboard() {
         },
       );
       const data = await response.json();
-      {
-        /* TODO: ini belum ada pengecekan akun udh aktif apa belum */
-      }
       if (response.ok) {
         setData(data.data);
+        console.log(data.data.statistic);
       } else {
         if (data == null) {
           router.push("/");
@@ -114,6 +114,11 @@ function Dashboard() {
       </div>
     );
   }
+
+  const messageCount = data.message.filter((message) =>
+    isToday(parseISO(message.created_at)),
+  ).length;
+
   return (
     <>
       <Navbar />
@@ -139,7 +144,14 @@ function Dashboard() {
                   {data.statistic ? data.statistic.total_visitor : "0"}
                 </div>{" "}
                 <p className="text-xs text-muted-foreground">
-                  Since october 2023
+                  sejak{" "}
+                  {data.statistic
+                    ? format(
+                        parseISO(data.statistic.created_at),
+                        "d MMMM yyyy",
+                        { locale: id },
+                      )
+                    : "0"}
                 </p>
               </CardContent>
             </Card>
@@ -166,7 +178,9 @@ function Dashboard() {
                 }
                 {/* TODO: ini masih statik */}
                 <p className="text-xs text-muted-foreground">
-                  10 messages added today
+                  {messageCount > 0
+                    ? `${messageCount} messages today`
+                    : "0 messages today"}{" "}
                 </p>
               </CardContent>
             </Card>

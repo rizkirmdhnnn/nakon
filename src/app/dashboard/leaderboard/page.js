@@ -66,7 +66,7 @@ function Page() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>Name</TableHead>
-                    <TableHead className="text-right">Messages Count</TableHead>
+                    <TableHead className="text-right">Total message</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
