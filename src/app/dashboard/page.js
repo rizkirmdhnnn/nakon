@@ -34,6 +34,7 @@ function Dashboard() {
   const [data, setData] = useState(null);
   const { toast } = useToast();
   const [user, setUser] = useState(null);
+  const [accountIsActive, setAccountIsActive] = useState(true);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -65,29 +66,21 @@ function Dashboard() {
         /* TODO: ini belum ada pengecekan akun udh aktif apa belum */
       }
       if (response.ok) {
-        {
-          /* saat akun belum aktif*/
-        }
-        if (response.status == 403 && data.message == "Account not active") {
-          return (
-            <div className="flex justify-center items-center h-screen">
-              <div className="text-xl font-bold">
-               Please activate your account first
-              </div>
-            </div>
-          );
-        }
         setData(data.data);
       } else {
         if (data == null) {
           router.push("/");
         }
 
-        console.log(response.status);
         if (response.status == 401) {
           localStorage.removeItem("token");
           localStorage.removeItem("user");
           router.push("/");
+        }
+
+        setLoading(false);
+        if (response.status == 403) {
+          setAccountIsActive(false);
         }
       }
     } catch (error) {
@@ -106,14 +99,21 @@ function Dashboard() {
     );
   }
 
-  if (!data) {
+  if (!accountIsActive) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <div className="text-xl font-bold">No data available</div>
+        <div className="text-xl font-bold">Aktifin dulu pantek </div>
       </div>
     );
   }
 
+  if (!data) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-xl font-bold">no data available</div>
+      </div>
+    );
+  }
   return (
     <>
       <Navbar />

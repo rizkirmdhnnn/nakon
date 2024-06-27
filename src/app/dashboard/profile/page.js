@@ -143,15 +143,17 @@ function Profile() {
         body: JSON.stringify(userData),
       });
 
+      const data = await response.json();
       if (response.ok) {
         showToast("Success", "Profile updated successfully");
         setIsEditing(false);
       } else {
-        showToast("Error", "Failed to update profile");
+        showToast("Error", data.message);
+        console.log(data.message);
       }
     } catch (error) {
-      console.error("Error updating profile:", error);
-      showToast("Error", "Failed to update profile");
+      console.log(data.message);
+      showToast("Error", data.message);
     }
     getUser();
   };
