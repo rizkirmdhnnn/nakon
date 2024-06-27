@@ -5,8 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { Loader2 } from "lucide-react";
@@ -23,6 +22,59 @@ function Profile() {
   const [isDeleting, setIsDeleting] = useState(false);
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
+  const [data, setData] = useState({});
+
+  const [userData, setUserData] = useState({
+    firstname: "",
+    lastname: "",
+    username: "",
+    email: "",
+  });
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (!user) {
+      router.push("/");
+    } else {
+      setData(JSON.parse(user) || {});
+      getUser();
+    }
+  }, []);
+
+  const getUser = async () => {
+    setIsLoading(true);
+    try {
+      const response = await fetch("https://nakonapi.rizpedia.com/api/v1/me", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      const data = await response.json();
+      console.log(data);
+      if (response.ok) {
+        setUserData({
+          firstname: data.data.firstname,
+          lastname: data.data.lastname,
+          username: data.data.username,
+          email: data.data.email,
+        });
+        // Update user data in local storage
+        localStorage.setItem("user", JSON.stringify(data.data));
+        setData(data.data);
+      } else {
+        showToast("Error", "Failed to fetch user data");
+      }
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      showToast("Error", error.message);
+    }
+    setIsLoading(false);
+  };
 
   const showToast = (title, desc) => {
     toast({
@@ -67,6 +119,53 @@ function Profile() {
     setIsDeleting(false);
   };
 
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUserData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSaveClick = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("https://nakonapi.rizpedia.com/api/v1/me", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(userData),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        showToast("Success", "Profile updated successfully");
+        setIsEditing(false);
+      } else {
+        showToast("Error", data.message);
+        console.log(data.message);
+      }
+    } catch (error) {
+      console.log(data.message);
+      showToast("Error", data.message);
+    }
+    getUser();
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-primary" />
+      </div>
+    );
+  }
+
   return (
     <>
       <Navbar />
@@ -85,9 +184,14 @@ function Profile() {
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
               <div className="mt-1">
-                <h1 className="text-xl font-bold md:text-2xl">NAMA</h1>
-                <h1 className="font-medium mb-1 sm:text-base md:text-base">
-                  EMAIL
+                <h1 className="text-xl font-bold md:text-2xl" id="nama-top">
+                  {data.firstname} {data.lastname}
+                </h1>
+                <h1
+                  className="font-medium mb-1 sm:text-base md:text-base"
+                  id="email-top"
+                >
+                  {data.email}
                 </h1>
               </div>
             </div>
@@ -102,39 +206,47 @@ function Profile() {
                   <h1 className="text-xl font-bold py-4">Details</h1>
                   <div className="mb-4 md:flex gap-10">
                     <div className="space-y-2">
-                      <Label htmlFor="firstName" className="w-full">
+                      <Label htmlFor="firstname" className="w-full">
                         First Name
                       </Label>
                       <Input
-                        autoComplete="firstName"
-                        id="firstName"
+                        name="firstname"
+                        id="firstname"
                         required
-                        type="firstName"
+                        type="text"
+                        disabled={!isEditing}
+                        value={userData.firstname}
+                        onChange={handleInputChange}
                       />
                     </div>
                     <div className="space-y-2 mt-5 md:mt-0">
-                      <Label htmlFor="lastName" className="w-full">
+                      <Label htmlFor="lastname" className="w-full">
                         Last Name
                       </Label>
                       <Input
-                        autoComplete="lastName"
-                        id="lastName"
+                        name="lastname"
+                        id="lastname"
                         required
-                        type="lastName"
-                        className=""
+                        type="text"
+                        disabled={!isEditing}
+                        value={userData.lastname}
+                        onChange={handleInputChange}
                       />
                     </div>
                   </div>
                   {/* username form */}
                   <div className="mb-4 md:mt-10">
                     <div className="space-y-2">
-                      <Label htmlFor="lastName">Username</Label>
+                      <Label htmlFor="username">Username</Label>
                       <Input
-                        autoComplete="lastName"
-                        id="lastName"
+                        name="username"
+                        id="username"
                         required
-                        type="lastName"
+                        type="text"
                         className="md:w-[30rem]"
+                        disabled={!isEditing}
+                        value={userData.username}
+                        onChange={handleInputChange}
                       />
                     </div>
                   </div>
@@ -143,19 +255,34 @@ function Profile() {
                     <div className="space-y-2">
                       <Label htmlFor="email">Email</Label>
                       <Input
-                        autoComplete="email"
+                        name="email"
                         id="email"
                         required
                         type="email"
                         className="md:w-[30rem]"
+                        disabled={!isEditing}
+                        value={userData.email}
+                        onChange={handleInputChange}
                       />
                     </div>
                   </div>
-                  {/* button save */}
+
                   <div className="flex justify-start py-4">
-                    <Button>Save</Button>
+                    {!isEditing && (
+                      <Button type="button" onClick={handleEditClick}>
+                        Edit
+                      </Button>
+                    )}
+                    {isEditing && (
+                      <Button type="button" onClick={handleSaveClick}>
+                        Save
+                      </Button>
+                    )}
                   </div>
-                  {/* password form */}
+                </form>
+
+                {/* Ini form password*/}
+                <form>
                   <div>
                     <h1 className="text-xl font-bold pt-5 pb-2">
                       Change Password
@@ -186,7 +313,6 @@ function Profile() {
                     </div>
                   </div>{" "}
                 </form>
-                <div className="col-span-5 text-white"></div>
               </div>
             </div>
           </div>

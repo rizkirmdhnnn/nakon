@@ -27,6 +27,8 @@ import { ArrowRightCircle, Copy, MessageCircleIcon, Users } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { format, parseISO, isToday } from "date-fns";
+import { id } from "date-fns/locale";
 
 function Dashboard() {
   const router = useRouter();
@@ -34,6 +36,7 @@ function Dashboard() {
   const [data, setData] = useState(null);
   const { toast } = useToast();
   const [user, setUser] = useState(null);
+  const [accountIsActive, setAccountIsActive] = useState(true);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -61,33 +64,23 @@ function Dashboard() {
         },
       );
       const data = await response.json();
-      {
-        /* TODO: ini belum ada pengecekan akun udh aktif apa belum */
-      }
       if (response.ok) {
-        {
-          /* saat akun belum aktif*/
-        }
-        if (response.status == 403 && data.message == "Account not active") {
-          return (
-            <div className="flex justify-center items-center h-screen">
-              <div className="text-xl font-bold">
-               Please activate your account first
-              </div>
-            </div>
-          );
-        }
         setData(data.data);
+        console.log(data.data.statistic);
       } else {
         if (data == null) {
           router.push("/");
         }
 
-        console.log(response.status);
         if (response.status == 401) {
           localStorage.removeItem("token");
           localStorage.removeItem("user");
           router.push("/");
+        }
+
+        setLoading(false);
+        if (response.status == 403) {
+          setAccountIsActive(false);
         }
       }
     } catch (error) {
@@ -106,13 +99,25 @@ function Dashboard() {
     );
   }
 
-  if (!data) {
+  if (!accountIsActive) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <div className="text-xl font-bold">No data available</div>
+        <div className="text-xl font-bold">Aktifin dulu pantek </div>
       </div>
     );
   }
+
+  if (!data) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="text-xl font-bold">no data available</div>
+      </div>
+    );
+  }
+
+  const messageCount = data.message.filter((message) =>
+    isToday(parseISO(message.created_at)),
+  ).length;
 
   return (
     <>
@@ -139,7 +144,14 @@ function Dashboard() {
                   {data.statistic ? data.statistic.total_visitor : "0"}
                 </div>{" "}
                 <p className="text-xs text-muted-foreground">
-                  Since october 2023
+                  sejak{" "}
+                  {data.statistic
+                    ? format(
+                        parseISO(data.statistic.created_at),
+                        "d MMMM yyyy",
+                        { locale: id },
+                      )
+                    : "0"}
                 </p>
               </CardContent>
             </Card>
@@ -166,7 +178,9 @@ function Dashboard() {
                 }
                 {/* TODO: ini masih statik */}
                 <p className="text-xs text-muted-foreground">
-                  10 messages added today
+                  {messageCount > 0
+                    ? `${messageCount} messages today`
+                    : "0 messages today"}{" "}
                 </p>
               </CardContent>
             </Card>
@@ -266,7 +280,7 @@ function Dashboard() {
                 <CardDescription>User with the most questions</CardDescription>
               </div>
               <Button asChild size="sm" className="ml-auto gap-1">
-                <Link href="#">
+                <Link href="./dashboard/leaderboard">
                   View All
                   <ArrowRightCircle className="h-4 w-4" />
                 </Link>
