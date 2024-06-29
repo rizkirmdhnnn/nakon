@@ -171,15 +171,15 @@ function Profile() {
       <Navbar />
       <div className="container pt-[100px] min-h-screen">
         <div className="">
-          <h1 className="text-2xl font-bold">Account</h1>
-          <h1 className="text-lg font-medium pb-5">Manage Your Profile</h1>
+          <h1 className="text-xl font-bold">Account</h1>
+          <h1 className="text-lg  font-medium pb-5">Manage Your Profile</h1>
           <hr></hr>
         </div>
 
         <section>
           <div className="mt-7">
-            <div className="w-full flex flex-row gap-4 items-center">
-              <Avatar className="w-20 h-20">
+            <div className="w-full flex flex-row gap-2 items-center">
+              <Avatar className="w-14 h-14">
                 <AvatarImage src="https://github.com/shadcn.png" />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
@@ -188,7 +188,7 @@ function Profile() {
                   {data.firstname} {data.lastname}
                 </h1>
                 <h1
-                  className="font-medium mb-1 sm:text-base md:text-base"
+                  className="font-medium mb-1 text-[11px] sm:text-sm md:text-base email-text"
                   id="email-top"
                 >
                   {data.email}
@@ -326,7 +326,7 @@ function Profile() {
             <Button onClick={handleOpenDialog}>Delete Account</Button>
           </div>
         </section>
-      </div>
+        </div>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
           <DialogHeader>
@@ -349,8 +349,8 @@ function Profile() {
           </Button>
         </DialogContent>
       </Dialog>
-
       <Footer />
+     
     </>
   );
 }
