@@ -33,6 +33,11 @@ function Profile() {
     email: "",
   });
 
+  const [password, setPassword] = useState({
+    password: "",
+    new_password: "",
+  });
+
   useEffect(() => {
     const user = localStorage.getItem("user");
     if (!user) {
@@ -76,17 +81,6 @@ function Profile() {
     setIsLoading(false);
   };
 
-  const showToast = (title, desc) => {
-    toast({
-      title: title,
-      description: desc,
-    });
-  };
-
-  const handleOpenDialog = () => {
-    setOpen(true);
-  };
-
   const handleDeleteAccount = async () => {
     setIsDeleting(true);
     try {
@@ -119,18 +113,6 @@ function Profile() {
     setIsDeleting(false);
   };
 
-  const handleEditClick = () => {
-    setIsEditing(true);
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setUserData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
   const handleSaveClick = async (e) => {
     e.preventDefault();
     try {
@@ -156,6 +138,77 @@ function Profile() {
       showToast("Error", data.message);
     }
     getUser();
+  };
+
+  const handleChangePassword = async (e) => {
+    if (password.password === "" || password.new_password === "") {
+      showToast("Error", "Please fill all fields");
+      return;
+    }
+
+    if (password.password === password.new_password) {
+      showToast("Error", "New password cannot be the same as current password");
+      return;
+    }
+
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        "https://nakonapi.rizpedia.com/api/v1/auth/change-password",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(password),
+        },
+      );
+
+      const data = await response.json();
+      if (response.ok) {
+        showToast("Success", "Password updated successfully");
+      } else {
+        showToast("Error", data.message);
+      }
+    } catch (error) {
+      console.error("Error updating password:", error);
+      showToast("Error", "Server error");
+    }
+    password.password = "";
+    password.new_password = "";
+    getUser();
+  };
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUserData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleInputPasswordChange = (e) => {
+    const { name, value } = e.target;
+    setPassword((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleOpenDialog = () => {
+    setOpen(true);
+  };
+
+  const showToast = (title, desc) => {
+    toast({
+      title: title,
+      description: desc,
+    });
   };
 
   if (isLoading) {
@@ -282,7 +335,7 @@ function Profile() {
                 </form>
 
                 {/* Ini form password*/}
-                <form>
+                <form onSubmit={handleChangePassword}>
                   <div>
                     <h1 className="text-xl font-bold pt-5 pb-2">
                       Change Password
@@ -292,24 +345,31 @@ function Profile() {
                         <Label htmlFor="current-password">
                           Current Password
                         </Label>
+
                         <Input
-                          id="current-password"
+                          name="password"
+                          id="password"
                           type="password"
                           className="md:w-[30rem]"
+                          value={password.password}
+                          onChange={handleInputPasswordChange}
                         />
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="new-password">New Password</Label>
                         <Input
-                          id="new-password"
+                          name="new_password"
+                          id="new_password"
                           type="password"
                           className="md:w-[30rem]"
+                          value={password.new_password}
+                          onChange={handleInputPasswordChange}
                         />
                       </div>
                     </div>
                     {/* button save */}
                     <div className="flex justify-start">
-                      <Button>Save Password</Button>
+                      <Button>Change Password</Button>
                     </div>
                   </div>{" "}
                 </form>
