@@ -17,6 +17,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import Link from "next/link";
+import { set } from "date-fns";
 
 function Profile() {
   const router = useRouter();
@@ -228,7 +229,7 @@ function Profile() {
             accept: "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-          body: JSON.stringify(userData),
+          body: JSON.stringify(setTelegramId),
         }
       );
       const data = await response.json();
@@ -392,24 +393,23 @@ function Profile() {
                     </div>
                   </div>
                   {/* hint */}
-                  <div class="border-2 p-4 rounded-lg shadow-md max-w-lg mt-5">
+                  <div class="border-[1px] p-4 rounded-lg shadow-md max-w-lg mt-5">
                     <div class="flex space-x-2 mb-2">
                       <span class="font-semibold">Tips!</span>
                     </div>
                     <ul class="list-disc list-inside space-y-2">
                       <li>
-                        Kamu perlu mengisi username untuk mendapatkan chat id
+                        You need to fill in your username to get chat id
                       </li>
                       <li>
-                        Kirimkan perintah /start ke{" "}
-                        <Link href={"/"} className="hover:text-blue-600">
+                        Send command /start to{" "}
+                        <a href={"https://t.me/nakon_notif_bot"} className="hover:text-blue-300 text-primary">
                           @Nakon-Notif
-                        </Link>{" "}
-                        di Telegram
+                        </a>{" "}
+                        in telegram
                       </li>
+                        Copy id that given by bot after sending /start command 
                       <li>
-                        Salin id yang diberikan oleh bot setelah mengirimkan
-                        perintah /start
                       </li>
                     </ul>
                   </div>
