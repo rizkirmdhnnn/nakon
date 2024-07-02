@@ -390,6 +390,35 @@ function Profile() {
                       <Button type="submit">Submit</Button>
                     </div>
                   </div>
+                  {/* hint */}
+                  <div class="border-2  text-white p-4 rounded-lg shadow-md max-w-md mt-5">
+                    <div class="flex space-x-2 mb-2">
+                      <span class="font-semibold">Tips!</span>
+                    </div>
+                    <ul class="list-disc list-inside space-y-1">
+                      <li>
+                        Kamu perlu mengisi username untuk mendapatkan chat id
+                      </li>
+                      <li>
+                        Kirimkan perintah{" "}
+                        <code class="bg-gray-800 px-1 py-0.5 rounded text-yellow-400">
+                          /start
+                        </code>{" "}
+                        ke{" "}
+                        <code class="bg-gray-800 px-1 py-0.5 rounded text-blue-400">
+                          @Nakon-Notif
+                        </code>{" "}
+                        di Telegram
+                      </li>
+                      <li>
+                        Salin id yang diberikan oleh bot setelah mengirimkan
+                        perintah{" "}
+                        <code class="bg-gray-800 px-1 py-0.5 rounded text-yellow-400">
+                          /start
+                        </code>
+                      </li>
+                    </ul>
+                  </div>
                 </form>
 
                 {/* Ini form password*/}
