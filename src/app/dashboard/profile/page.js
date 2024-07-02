@@ -16,6 +16,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import Link from "next/link";
 
 function Profile() {
   const router = useRouter();
@@ -391,31 +392,24 @@ function Profile() {
                     </div>
                   </div>
                   {/* hint */}
-                  <div class="border-2  text-white p-4 rounded-lg shadow-md max-w-md mt-5">
+                  <div class="border-2 p-4 rounded-lg shadow-md max-w-lg mt-5">
                     <div class="flex space-x-2 mb-2">
                       <span class="font-semibold">Tips!</span>
                     </div>
-                    <ul class="list-disc list-inside space-y-1">
+                    <ul class="list-disc list-inside space-y-2">
                       <li>
                         Kamu perlu mengisi username untuk mendapatkan chat id
                       </li>
                       <li>
-                        Kirimkan perintah{" "}
-                        <code class="bg-gray-800 px-1 py-0.5 rounded text-yellow-400">
-                          /start
-                        </code>{" "}
-                        ke{" "}
-                        <code class="bg-gray-800 px-1 py-0.5 rounded text-blue-400">
+                        Kirimkan perintah /start ke{" "}
+                        <Link href={"/"} className="hover:text-blue-600">
                           @Nakon-Notif
-                        </code>{" "}
+                        </Link>{" "}
                         di Telegram
                       </li>
                       <li>
                         Salin id yang diberikan oleh bot setelah mengirimkan
-                        perintah{" "}
-                        <code class="bg-gray-800 px-1 py-0.5 rounded text-yellow-400">
-                          /start
-                        </code>
+                        perintah /start
                       </li>
                     </ul>
                   </div>
