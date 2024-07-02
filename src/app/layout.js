@@ -20,7 +20,7 @@ export const metadata = {
     url: "https://nakon.vercel.app",
     images: [
       {
-        url: "http://localhost:3000/sembereeee.png",
+        url: "https://nakon.vercel.app/sembereeee.png",
       },
     ],
   },
@@ -32,7 +32,7 @@ export const metadata = {
     site: "nako.vercel.app",
     images: [
       {
-        url: "http://localhost:3000/sembereeee.png",
+        url: "https://nakon.vercel.app/sembereeee.png",
       },
     ],
   },
@@ -44,7 +44,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >

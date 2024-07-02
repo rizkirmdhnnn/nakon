@@ -25,6 +25,7 @@ function Profile() {
   const [isLoading, setIsLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
   const [data, setData] = useState({});
+  const [telegramId, setTelegramId] = useState("");
 
   const [userData, setUserData] = useState({
     firstname: "",
@@ -162,7 +163,7 @@ function Profile() {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           body: JSON.stringify(password),
-        },
+        }
       );
 
       const data = await response.json();
@@ -192,6 +193,10 @@ function Profile() {
     }));
   };
 
+  const handleInputTeleChange = (e) => {
+    setTelegramId(e.target.value);
+  };
+
   const handleInputPasswordChange = (e) => {
     const { name, value } = e.target;
     setPassword((prevState) => ({
@@ -209,6 +214,29 @@ function Profile() {
       title: title,
       description: desc,
     });
+  };
+
+  const handleTelegramId = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        "https://nakonapi.rizpedia.com/api/v1/me/notif",
+        {
+          method: "PUT",
+          headers: {
+            accept: "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(userData),
+        }
+      );
+      const data = await response.json();
+      console.log("Success:", data);
+      showToast("Success", "Telegram ID updated successfully");
+    } catch (error) {
+      console.error("Error updating telegram id:", error);
+      showToast("Error", "Server error");
+    }
   };
 
   if (isLoading) {
@@ -334,10 +362,40 @@ function Profile() {
                   </div>
                 </form>
 
+                {/* form id telegram */}
+                <form onSubmit={handleTelegramId}>
+                  <div>
+                    <h1 className="text-xl font-bold pt-7 pb-2">
+                      Notification To Telegram
+                    </h1>
+                    <div className="mb-4 space-y-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="telegramId">
+                          Set Your Telegram Id To Get Notification
+                        </Label>
+                        <Input
+                          name="telegramId"
+                          id="telegramId"
+                          type="text"
+                          className="md:w-[30rem]"
+                          value={telegramId}
+                          onChange={handleInputTeleChange}
+                        />
+                        <p className="text-[14px] my-5 ">
+                          No need to add @, just add your telegram id
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex justify-start mt-3">
+                      <Button type="submit">Submit</Button>
+                    </div>
+                  </div>
+                </form>
+
                 {/* Ini form password*/}
                 <form onSubmit={handleChangePassword}>
                   <div>
-                    <h1 className="text-xl font-bold pt-5 pb-2">
+                    <h1 className="text-xl font-bold pt-10 pb-2">
                       Change Password
                     </h1>
                     <div className="mb-4 space-y-4">
@@ -386,7 +444,7 @@ function Profile() {
             <Button onClick={handleOpenDialog}>Delete Account</Button>
           </div>
         </section>
-        </div>
+      </div>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
           <DialogHeader>
@@ -410,7 +468,6 @@ function Profile() {
         </DialogContent>
       </Dialog>
       <Footer />
-     
     </>
   );
 }
