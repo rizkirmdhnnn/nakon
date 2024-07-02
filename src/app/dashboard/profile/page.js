@@ -164,7 +164,7 @@ function Profile() {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           body: JSON.stringify(password),
-        }
+        },
       );
 
       const data = await response.json();
@@ -225,11 +225,11 @@ function Profile() {
         {
           method: "PUT",
           headers: {
-            accept: "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify(userData),
-        }
+          body: JSON.stringify({ telegram_user_id: telegramId }),
+        },
       );
       const data = await response.json();
       console.log("Success:", data);
