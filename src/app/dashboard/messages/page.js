@@ -51,7 +51,7 @@ function AllMessagePage() {
             Authorization: "Bearer " + localStorage.getItem("token"),
             "Content-Type": "application/json",
           },
-        },
+        }
       );
       const data = await response.json();
       if (response.ok) {
@@ -129,67 +129,68 @@ function AllMessagePage() {
               No messages available
             </div>
           )}
-          {/* TODO: styling masing jelek*/}
-          <Pagination className="mt-4">
-            <PaginationContent>
-              <PaginationItem>
-                <PaginationPrevious
-                  onClick={() =>
-                    paginate(Math.max(1, pagination.current_page - 1))
-                  }
-                  className={
-                    pagination.current_page === 1
-                      ? "pointer-events-none opacity-50"
-                      : ""
-                  }
-                />
-              </PaginationItem>
-
-              <PaginationItem>
-                <PaginationLink href="#" onClick={() => paginate(1)}>
-                  1
-                </PaginationLink>
-              </PaginationItem>
-
-              <PaginationItem>
-                <PaginationLink
-                  href="#"
-                  isActive
-                  onClick={() => paginate(pagination.current_page)}
-                >
-                  {pagination.current_page}
-                </PaginationLink>
-              </PaginationItem>
-
-              <PaginationItem>
-                <PaginationLink
-                  href="#"
-                  onClick={() => paginate(pagination.last_page)}
-                >
-                  5
-                </PaginationLink>
-              </PaginationItem>
-
-              <PaginationItem>
-                <PaginationNext
-                  onClick={() =>
-                    paginate(
-                      Math.min(
-                        pagination.last_page,
-                        pagination.current_page + 1,
-                      ),
-                    )
-                  }
-                  className={
-                    pagination.current_page === pagination.last_page
-                      ? "pointer-events-none opacity-50"
-                      : ""
-                  }
-                />
-              </PaginationItem>
-            </PaginationContent>
-          </Pagination>{" "}
         </div>
+          <div className="w-full mx-auto flex justify-center items-center">
+            <Pagination className="mt-6">
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious
+                    onClick={() =>
+                      paginate(Math.max(1, pagination.current_page - 1))
+                    }
+                    className={
+                      pagination.current_page === 1
+                        ? "pointer-events-none opacity-50"
+                        : ""
+                    }
+                  />
+                </PaginationItem>
+
+                <PaginationItem>
+                  <PaginationLink href="#" onClick={() => paginate(1)}>
+                    1                                         
+                  </PaginationLink>
+                </PaginationItem>
+
+                <PaginationItem>
+                  <PaginationLink
+                    href="#"
+                    isActive
+                    onClick={() => paginate(pagination.current_page)}
+                  >
+                    {pagination.current_page}
+                  </PaginationLink>
+                </PaginationItem>
+
+                <PaginationItem>
+                  <PaginationLink
+                    href="#"
+                    onClick={() => paginate(pagination.last_page)}
+                  >
+                    5
+                  </PaginationLink>
+                </PaginationItem>
+
+                <PaginationItem>
+                  <PaginationNext
+                    onClick={() =>
+                      paginate(
+                        Math.min(
+                          pagination.last_page,
+                          pagination.current_page + 1
+                        )
+                      )
+                    }
+                    className={
+                      pagination.current_page === pagination.last_page
+                        ? "pointer-events-none opacity-50"
+                        : ""
+                    }
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>{" "}
+          </div>
       </main>
       <CustomFooter />
     </>
