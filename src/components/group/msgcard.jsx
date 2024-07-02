@@ -133,7 +133,7 @@ export default function MsgCard({ question, date, message, id, read, refreshData
                 )}
 
               </Button>
-              <Button variant="outlineDestructive" className="w-1/2" onClick={handleButtonDelete}>
+              <Button variant="outlineDestructive" className="w-1/2 border-[1px] border-red-500 hover:border-red-400 hover:text-gray-400" onClick={handleButtonDelete}>
                 {isDeleting ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : (
