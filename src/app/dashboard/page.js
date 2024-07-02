@@ -27,7 +27,7 @@ import { ArrowRightCircle, Copy, MessageCircleIcon, Users } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { format, parseISO, isToday } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { id } from "date-fns/locale";
 
 function Dashboard() {
@@ -61,7 +61,7 @@ function Dashboard() {
             "Content-Type": "application/json",
             Accept: "application/json",
           },
-        },
+        }
       );
       const data = await response.json();
       if (response.ok) {
@@ -114,11 +114,6 @@ function Dashboard() {
       </div>
     );
   }
-
-  const messageCount = data.message.filter((message) =>
-    isToday(parseISO(message.created_at)),
-  ).length;
-
   return (
     <>
       <Navbar />
@@ -149,7 +144,7 @@ function Dashboard() {
                     ? format(
                         parseISO(data.statistic.created_at),
                         "d MMMM yyyy",
-                        { locale: id },
+                        { locale: id }
                       )
                     : "0"}
                 </p>
@@ -178,8 +173,8 @@ function Dashboard() {
                 }
                 {/* TODO: ini masih statik */}
                 <p className="text-xs text-muted-foreground">
-                  {messageCount > 0
-                    ? `${messageCount} messages today`
+                  {data.msg_count_today > 0
+                    ? `${data.msg_count_today} messages today`
                     : "0 messages today"}{" "}
                 </p>
               </CardContent>
