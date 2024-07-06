@@ -102,7 +102,7 @@ function Dashboard() {
   if (!accountIsActive) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <div className="text-xl font-bold">Aktifin dulu pantek </div>
+        <div className="text-xl font-bold">Please activate your account first</div>
       </div>
     );
   }
@@ -114,6 +114,7 @@ function Dashboard() {
       </div>
     );
   }
+  
   return (
     <>
       <Navbar />
